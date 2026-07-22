@@ -253,24 +253,28 @@
   <section class="contact" id="contact">
     <div class="container">
       <h2>Contact me</h2>
-      <form class="contact-form" id="contact-form" novalidate>
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/ajax/jasminekhataei@gmail.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New enquiry from the website">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
         <div class="form-row">
           <div class="form-field">
             <label for="first-name">First name</label>
-            <input type="text" id="first-name" name="first-name" placeholder="Jane" required>
+            <input type="text" id="first-name" name="First name" placeholder="Jane" required>
           </div>
           <div class="form-field">
             <label for="last-name">Last name</label>
-            <input type="text" id="last-name" name="last-name" placeholder="Smitherton" required>
+            <input type="text" id="last-name" name="Last name" placeholder="Smitherton" required>
           </div>
         </div>
         <div class="form-field">
           <label for="email">Email address</label>
-          <input type="email" id="email" name="email" placeholder="email@janesfakedomain.net" required>
+          <input type="email" id="email" name="Email address" placeholder="email@janesfakedomain.net" required>
         </div>
         <div class="form-field">
           <label for="message">Your message</label>
-          <textarea id="message" name="message" rows="5" placeholder="Enter your question or message" required></textarea>
+          <textarea id="message" name="Message" rows="5" placeholder="Enter your question or message" required></textarea>
         </div>
         <button type="submit" class="btn btn-black btn-block">Submit</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
