@@ -272,14 +272,7 @@ p { margin: 0 0 16px; color: var(--text-muted); }
   grid-template-columns: 1fr 1fr;
 }
 .come-in-image { background: var(--teal-dark); min-height: 480px; }
-.come-in-image svg { width: 100%; height: 100%; display: block; }
-.illu-word-1, .illu-word-2 {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 28px;
-  fill: #fff;
-  font-weight: 600;
-}
+.come-in-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .come-in-copy {
   padding: 72px 56px;
   display: flex;
