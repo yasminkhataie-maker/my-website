@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Mobile nav toggle
-  var header = document.querySelector('.site-header');
+  var nav = document.querySelector('.side-nav');
   var toggle = document.querySelector('.nav-toggle');
-  if (toggle && header) {
+  if (toggle && nav) {
     toggle.addEventListener('click', function () {
-      var open = header.classList.toggle('menu-open');
+      var open = nav.classList.toggle('menu-open');
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 
-    document.querySelectorAll('.mobile-menu a').forEach(function (link) {
+    document.querySelectorAll('.side-nav-panel a').forEach(function (link) {
       link.addEventListener('click', function () {
-        header.classList.remove('menu-open');
+        nav.classList.remove('menu-open');
         toggle.setAttribute('aria-expanded', 'false');
       });
     });
