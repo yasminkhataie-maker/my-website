@@ -117,23 +117,7 @@ p { margin: 0 0 16px; color: var(--text-muted); }
   align-items: center;
   gap: 8px;
 }
-.logo-eye { width: 34px; height: 22px; color: var(--red); flex-shrink: 0; }
-.logo-text { font-family: var(--font-serif); line-height: 1.05; }
-.logo-text em {
-  display: block;
-  font-style: italic;
-  font-weight: 500;
-  color: var(--teal);
-  font-size: 1.05rem;
-}
-.logo-text strong {
-  display: block;
-  font-style: italic;
-  font-weight: 700;
-  color: var(--teal);
-  font-size: 1.2rem;
-}
-.logo-text .accent { color: var(--red); }
+.logo-img { height: 32px; width: auto; display: block; }
 
 .nav-toggle {
   display: none;
