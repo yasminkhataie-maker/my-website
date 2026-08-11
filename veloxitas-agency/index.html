@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-editable="text">Veloxitas Agency | Business</title>
+<meta name="description" content="Veloxitas Agency — everything your business needs, all in one place.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%236d28d9%22/><text x=%2216%22 y=%2222%22 font-family=%22Arial%22 font-weight=%22700%22 font-size=%2216%22 fill=%22white%22 text-anchor=%22middle%22>V</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ ICON SPRITE (edit paths here to change icons everywhere) ============ -->
+<svg style="display:none">
+  <defs>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+    <symbol id="i-team" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="9.5" r="2.6"/><path d="M3.5 20c.7-3.6 3.2-5.6 5.5-5.6s4.8 2 5.5 5.6"/><path d="M14.8 15.2c1.8.2 3.6 1.7 4.2 4.8"/></symbol>
+    <symbol id="i-budget" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="16" rx="2"/><path d="M3.5 9.5h17"/><path d="M7 13.2h2M11 13.2h2M15 13.2h2M7 16.6h2M11 16.6h2"/></symbol>
+    <symbol id="i-grow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17c4-1 6-4 8-8 1.5 2 3 3 5 3"/><path d="M15.5 6h4.5v4.5"/><path d="M20 6l-6 6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17"/><path d="M12 3.5c2.6 2.4 4 5.3 4 8.5s-1.4 6.1-4 8.5c-2.6-2.4-4-5.3-4-8.5s1.4-6.1 4-8.5Z"/></symbol>
+    <symbol id="i-flex" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5 5.6.5-4.2 3.8 1.3 5.5L12 15.2 6.9 17.8l1.3-5.5-4.2-3.8 5.6-.5Z"/></symbol>
+    <symbol id="i-invoice" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h6M9 15.5h6M9 8.5h3"/></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6.5h6l2 2.4h9V19h-17Z"/></symbol>
+    <symbol id="i-laptop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="5" width="15" height="10" rx="1.4"/><path d="M2.5 19h19"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24" fill="none"><path d="M8 5.5v13l11-6.5Z" fill="currentColor"/></symbol>
+    <symbol id="i-dollar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v19"/><path d="M16.5 6.8c-.6-1-2-1.8-4-1.8-2.6 0-4.5 1.4-4.5 3.4 0 4.4 8.5 2.3 8.5 6.6 0 2-2 3.5-4.5 3.5-2 0-3.6-.8-4.3-1.9"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.6-3 7.6-7 9-4-1.4-7-4.4-7-9V6Z"/><path d="M9 12l2 2 4-4.5"/></symbol>
+    <symbol id="i-permit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3"/><path d="M6 20c.8-3.4 2.9-5.2 6-5.2s5.2 1.8 6 5.2"/><path d="M18.5 6.5l1.2-1.2M19.7 5.3l1 1"/></symbol>
+    <symbol id="i-relax" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M8 8l4-4 4 4"/><path d="M4 15v3a2 2 0 002 2h12a2 2 0 002-2v-3"/></symbol>
+    <symbol id="i-approve" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L3 10.5l7 3 3 7Z"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l3 6.2 6.7.9-4.9 4.7 1.2 6.7L12 17.8l-6 3.2 1.2-6.7-4.9-4.7 6.7-.9Z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- ============ EDIT MODE BANNER ============ -->
+<div class="edit-banner">حالت ویرایش فعاله — روی متن‌ها کلیک کن و تایپ کن، روی عکس‌ها کلیک کن تا عوضشون کنی</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">
+      <span class="logo-word" data-editable="text">Veloxitas</span>
+      <span class="logo-sub" data-editable="text">Agency</span>
+    </a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#services" class="active" data-editable="text">Services</a>
+      <a href="#work" data-editable="text">Work</a>
+      <a href="#about" data-editable="text">About</a>
+      <a href="#insights" data-editable="text">Insights</a>
+    </nav>
+    <div class="header-actions">
+      <div class="header-links">
+        <span class="nav-more" data-editable="text">Resources <svg width="14" height="14" viewBox="0 0 24 24"><use href="#i-chev"/></svg></span>
+        <a href="#pricing" data-editable="text">Pricing</a>
+        <a href="#help" data-editable="text">Help</a>
+      </div>
+      <a href="#login" class="btn btn-outline-light btn-sm" data-editable="text">Client Login</a>
+      <a href="#contact" class="btn btn-primary btn-sm" data-editable="text">Book a Call</a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#services">Services</a>
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#insights">Insights</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#help">Help</a>
+    <a href="#login" class="btn btn-outline-light">Client Login</a>
+    <a href="#contact" class="btn btn-primary">Book a Call</a>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <h1 class="hero-line1" data-editable="text">TURN YOUR<br>IDEA</h1>
+      <h1 class="hero-line2" data-editable="text">INTO AN<br>EMPIRE</h1>
+
+      <div class="hero-portrait-wrap">
+        <div class="hero-portrait img-edit-wrap">
+          <img src="assets/placeholder.svg" alt="Founder portrait" data-editable="image">
+        </div>
+
+        <div class="float-card card-top">
+          <div class="fc-title"><span data-editable="text">Projects</span><span class="fc-plus">+</span></div>
+          <div class="fc-visual">
+            <span class="fc-tier" data-editable="text">Active · 3</span>
+            <span class="fc-brand" data-editable="text">VELOXITAS</span>
+          </div>
+        </div>
+
+        <div class="float-card card-mid">
+          <div class="fc-stat-title"><span data-editable="text">Growth</span><span><span class="fc-dot in"></span><span data-editable="text">Up</span> · <span class="fc-dot out"></span><span data-editable="text">Down</span></span></div>
+          <div class="fc-bar"><span></span><span></span></div>
+        </div>
+
+        <div class="video-card">
+          <div class="video-thumb img-edit-wrap">
+            <img src="assets/placeholder.svg" alt="Client at work" data-editable="image">
+          </div>
+          <div>
+            <p class="vc-text" data-editable="text">Work. Like<br>never before</p>
+            <span class="play-row"><span class="play-btn"><svg width="12" height="12"><use href="#i-play"/></svg></span> <span data-editable="text">Play video</span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container hero-footer">
+      <div class="trust">
+        <svg width="20" height="20" style="color:#fff"><use href="#i-shield"/></svg>
+        <span data-editable="text">Solve all your business needs and beyond, in one super savvy team</span>
+      </div>
+      <div class="discover">
+        <span data-editable="text">Discover <strong>Veloxitas Agency</strong> today</span>
+        <svg width="16" height="16" style="transform:rotate(-90deg)"><use href="#i-chev"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FEATURE STRIP (9 icons) ============ -->
+  <section class="feature-strip" id="services">
+    <div class="container">
+      <h2 data-editable="text">WE TAKE THE HASSLE OUT OF THE HUSTLE</h2>
+      <div class="feature-row">
+        <div class="feature-item"><svg><use href="#i-home"/></svg><h3 data-editable="text">Fast onboarding</h3><p data-editable="text">Kick off your project digitally in minutes</p></div>
+        <div class="feature-item"><svg><use href="#i-team"/></svg><h3 data-editable="text">Team collaboration</h3><p data-editable="text">Work with your whole team, all in one place</p></div>
+        <div class="feature-item"><svg><use href="#i-budget"/></svg><h3 data-editable="text">Budget control</h3><p data-editable="text">Track spend and campaign budgets in real time</p></div>
+        <div class="feature-item"><svg><use href="#i-grow"/></svg><h3 data-editable="text">Growth plans</h3><p data-editable="text">Custom strategies built around your goals</p></div>
+        <div class="feature-item"><svg><use href="#i-globe"/></svg><h3 data-editable="text">Global reach</h3><p data-editable="text">Campaigns and delivery across every market</p></div>
+        <div class="feature-item"><svg><use href="#i-flex"/></svg><h3 data-editable="text">Flexible packages</h3><p data-editable="text">Scale services up or down as you grow</p></div>
+        <div class="feature-item"><svg><use href="#i-invoice"/></svg><h3 data-editable="text">Easy invoicing</h3><p data-editable="text">Transparent, simple billing for every project</p></div>
+        <div class="feature-item"><svg><use href="#i-folder"/></svg><h3 data-editable="text">Project management</h3><p data-editable="text">Smooth delivery, on time, every time</p></div>
+        <div class="feature-item"><svg><use href="#i-laptop"/></svg><h3 data-editable="text">Work from anywhere</h3><p data-editable="text">Your dashboard on any device</p></div>
+      </div>
+      <div class="strip-dots"><span class="active"></span><span></span><span></span></div>
+    </div>
+  </section>
+
+  <!-- ============ ONBOARDING (3 image cards) ============ -->
+  <section class="split-section reveal" id="onboarding">
+    <div class="container">
+      <div class="split-head">
+        <h2 data-editable="text">GETTING STARTED, FASTER THAN FAST</h2>
+        <div class="split-note">
+          <p data-editable="text">Set it up quickly right from your phone.</p>
+          <a href="#contact" class="btn btn-primary" data-editable="text">Start a project now</a>
+        </div>
+      </div>
+      <div class="card-row-3">
+        <article class="media-card">
+          <div class="media-frame img-edit-wrap"><img src="assets/placeholder.svg" alt="Simple digital process" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">Simple and fully digital process</h4><p data-editable="text">Add your information and get started. It's clear and fast.</p></div>
+        </article>
+        <article class="media-card">
+          <div class="media-frame img-edit-wrap"><img src="assets/placeholder.svg" alt="Up and running fast" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">Get up and running in 3 working days</h4><p data-editable="text">We'll kick off your project in a flash.</p></div>
+        </article>
+        <article class="media-card">
+          <div class="media-frame img-edit-wrap"><img src="assets/placeholder.svg" alt="24/7 human support" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">24/7 help, with real people</h4><p data-editable="text">If you need it, there's a dedicated team behind the screen to help.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MULTI-USER ACCESS (accordion + rings) ============ -->
+  <section class="split-section reveal" id="team" style="background:var(--gray-100)">
+    <div class="container accordion-split">
+      <div class="accordion-copy">
+        <h2 data-editable="text">MULTI-USER ACCESS: TURN ADMIN WORK INTO TEAM WORK</h2>
+        <a href="#contact" class="btn btn-primary" data-editable="text">Explore More</a>
+        <div class="accordion-list" style="margin-top:32px">
+          <div class="accordion-item open">
+            <button class="accordion-trigger" type="button">
+              <svg class="leading"><use href="#i-dollar"/></svg>
+              <span data-editable="text">Bring your team on board easily</span>
+              <svg class="chev"><use href="#i-chev"/></svg>
+            </button>
+            <div class="accordion-panel"><p data-editable="text">With just a few taps, you're always in control of your project.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button">
+              <svg class="leading"><use href="#i-permit"/></svg>
+              <span data-editable="text">Give them roles and permissions</span>
+              <svg class="chev"><use href="#i-chev"/></svg>
+            </button>
+            <div class="accordion-panel"><p data-editable="text">Decide exactly who can view, edit or approve each piece of work.</p></div>
+          </div>
+          <div class="accordion-item">
+            <button class="accordion-trigger" type="button">
+              <svg class="leading"><use href="#i-relax"/></svg>
+              <span data-editable="text">Enjoy the peace of mind of delegating</span>
+              <svg class="chev"><use href="#i-chev"/></svg>
+            </button>
+            <div class="accordion-panel"><p data-editable="text">Hand off tasks to teammates and trust it'll get done right.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rings-graphic">
+        <div class="avatar avatar-owner"><span data-editable="text">YN</span><span class="avatar-label" data-editable="text">Your Name<span class="avatar-role" data-editable="text">Owner</span></span></div>
+        <div class="avatar avatar-sm avatar-a"><span data-editable="text">JM</span><span class="avatar-tag" data-editable="text">Jamal</span><span class="avatar-badge">+</span></div>
+        <div class="avatar avatar-sm avatar-b"><span data-editable="text">CH</span><span class="avatar-tag" data-editable="text">Christine</span><span class="avatar-badge">+</span></div>
+        <div class="avatar avatar-sm avatar-c"><span data-editable="text">AL</span><span class="avatar-tag" data-editable="text">Alex</span><span class="avatar-badge">+</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BUDGET CONTROL (2 phone mockups) ============ -->
+  <section class="split-section reveal" id="budget">
+    <div class="container">
+      <div class="split-head">
+        <h2 data-editable="text">TAKE CONTROL OF YOUR BUDGET</h2>
+        <div class="split-note">
+          <p data-editable="text">Costs, timelines, scope... project matters can be overwhelming. Relax, we can help.</p>
+          <a href="#contact" class="btn btn-primary" data-editable="text">Discover the tools</a>
+        </div>
+      </div>
+      <div class="card-row-2">
+        <div class="phone-card">
+          <div class="phone-mock">
+            <div class="pm-label" data-editable="text">Total spent this month</div>
+            <div class="pm-amount" data-editable="text">22,400<span>.90 $</span></div>
+            <div class="pm-card"><div class="pm-card-visa"><span data-editable="text">Estimated</span><span data-editable="text">— Last month</span></div></div>
+          </div>
+          <div class="pc-caption"><h4 data-editable="text">Simple overview of your budget</h4><p data-editable="text">Your data in real time, easy to understand.</p></div>
+        </div>
+        <div class="phone-card">
+          <div class="phone-mock alt">
+            <div class="pm-label" data-editable="text">Team member</div>
+            <div class="pm-amount" style="font-size:1.4rem" data-editable="text">Alex's access</div>
+            <div class="pm-card"><div class="pm-card-visa"><span data-editable="text">Shared</span><span data-editable="text">VELOXITAS</span></div></div>
+          </div>
+          <div class="pc-caption"><h4 data-editable="text">Role-based access for easy management</h4><p data-editable="text">For freelancers or teammates. As simple as it gets.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GROWTH / SAVINGS (masonry image grid) ============ -->
+  <section class="split-section reveal" id="growth" style="background:var(--gray-100)">
+    <div class="container">
+      <div class="split-head">
+        <h2 data-editable="text">GROW YOUR BUSINESS AT YOUR OWN PACE</h2>
+        <div class="split-note">
+          <p data-editable="text">Whether you're refreshing your brand or planning something bigger, we make it easy to grow.</p>
+          <a href="#contact" class="btn btn-primary" data-editable="text">Discover growth plans</a>
+        </div>
+      </div>
+      <div class="card-row-3">
+        <article class="media-card" style="grid-column: span 1">
+          <div class="media-frame img-edit-wrap" style="aspect-ratio:3/4"><img src="assets/placeholder.svg" alt="Office space" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">Studio budget savings</h4><p data-editable="text">50,250 of 100,000 $ saved this quarter.</p></div>
+        </article>
+        <article class="media-card">
+          <div class="media-frame img-edit-wrap"><img src="assets/placeholder.svg" alt="Team working together" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">Go beyond your goals</h4><p data-editable="text">With the Growth plan, let your budget work for you — always.</p></div>
+        </article>
+        <article class="media-card">
+          <div class="media-frame img-edit-wrap"><img src="assets/placeholder.svg" alt="No minimum commitment" data-editable="image"></div>
+          <div class="media-caption"><h4 data-editable="text">No minimum commitment, your terms</h4><p data-editable="text">Start small or go big — it's entirely up to you.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GLOBAL REACH (purple hero-style band) ============ -->
+  <section class="split-section on-purple reveal" id="global">
+    <div class="container">
+      <div class="split-head">
+        <h2 data-editable="text">DELIVER CAMPAIGNS TO DUBAI, LONDON OR NYC</h2>
+        <div class="split-note">
+          <p data-editable="text">Wherever your customers are, Veloxitas makes reaching them simple, speedy and secure.</p>
+          <a href="#contact" class="btn btn-outline-light" data-editable="text">Learn about our reach</a>
+          <div style="margin-top:14px"><span class="pill-note" data-editable="text">Your projects are backed by a dedicated global team</span></div>
+        </div>
+      </div>
+      <div class="img-edit-wrap" style="border-radius: var(--radius-xl); overflow:hidden; aspect-ratio: 16/7; margin-top:12px">
+        <img src="assets/placeholder.svg" alt="Global network graphic" data-editable="image" style="width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GROWTH FUNDING / PACKAGES ============ -->
+  <section class="split-section reveal" id="packages" style="background:var(--navy-800)" class="on-dark">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;color:#fff">
+      <div>
+        <h2 style="text-transform:uppercase;font-size:clamp(2rem,4vw,3.1rem);margin-bottom:20px" data-editable="text">FUEL GROWTH, POWER PROGRESS</h2>
+        <p style="color:rgba(255,255,255,.78);margin-bottom:32px;max-width:420px" data-editable="text">Your business deserves more than one way to grow — explore the packages that work for you.</p>
+        <a href="#contact" class="btn btn-primary" data-editable="text" style="margin-bottom:32px;display:inline-flex">Discover Growth Packages</a>
+        <ul style="border-top:1px solid rgba(255,255,255,.15)">
+          <li style="display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.15)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-budget"/></svg><span data-editable="text">Strategy sprints</span></li>
+          <li style="display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.15)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-invoice"/></svg><span data-editable="text">Full-service campaigns</span></li>
+          <li style="display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.15)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-dollar"/></svg><span data-editable="text">Paid media management</span></li>
+          <li style="display:flex;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.15)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-team"/></svg><span data-editable="text">Long-term brand partnerships</span></li>
+        </ul>
+      </div>
+      <div class="img-edit-wrap" style="border-radius:var(--radius-xl);overflow:hidden;aspect-ratio:4/5;position:relative">
+        <img src="assets/placeholder.svg" alt="Client success" data-editable="image" style="width:100%;height:100%;object-fit:cover">
+        <div class="float-card" style="position:absolute;left:24px;bottom:24px;right:24px;width:auto;background:var(--navy-900);color:#fff">
+          <div class="fc-title" style="color:#fff"><svg width="16" height="16" style="color:var(--purple-400)"><use href="#i-flex"/></svg><span data-editable="text">Veloxitas Growth Plan</span></div>
+          <p style="font-size:.82rem;color:rgba(255,255,255,.75)" data-editable="text">Apply for a tailored growth plan and unlock extra creative hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INVOICING ============ -->
+  <section class="split-section reveal" id="invoicing">
+    <div class="container">
+      <div class="split-head">
+        <h2 data-editable="text">INVOICE SMARTER, GET PAID SOONER</h2>
+        <div class="split-note">
+          <p data-editable="text">Struggling with invoicing every month? Veloxitas to the rescue — simple and paperless.</p>
+          <a href="#contact" class="btn btn-primary" data-editable="text">Explore invoicing</a>
+        </div>
+      </div>
+      <div class="card-row-2">
+        <div class="media-card" style="border-radius:var(--radius-lg)">
+          <div class="media-frame img-edit-wrap" style="aspect-ratio:4/5"><img src="assets/placeholder.svg" alt="Client portrait" data-editable="image"></div>
+        </div>
+        <div>
+          <div class="phone-card" style="background:var(--gray-100)">
+            <div class="pc-caption" style="padding-top:4px"><h4 data-editable="text">Links to facilitate payments</h4><p data-editable="text">For the client, it'll be simpler, safer and more convenient — we work with top partners like Stripe.</p></div>
+            <div class="phone-mock" style="aspect-ratio:3/2;border-radius:16px;background:linear-gradient(135deg,#ffb703,#fb8500)">
+              <div class="pm-card" style="position:static;background:rgba(255,255,255,.92);color:var(--ink)">
+                <div class="pm-card-visa"><span data-editable="text">Amount</span><span data-editable="text">$2,500.00</span></div>
+                <p style="font-size:.72rem;color:var(--gray-500);margin-top:6px" data-editable="text">veloxitas-invoice</p>
+              </div>
+            </div>
+          </div>
+          <div class="phone-card" style="background:var(--gray-100);margin-top:24px">
+            <div class="pc-caption" style="padding-top:4px"><h4 data-editable="text">Auto-reminders to get paid earlier</h4><p data-editable="text">We'll politely nudge late payers, so you don't have to.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DELIVERY PROCESS (dark full photo) ============ -->
+  <section class="split-section on-dark reveal img-edit-wrap" id="delivery" style="position:relative;padding:0">
+    <img src="assets/placeholder.svg" alt="Team collaborating" data-editable="image" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg, rgba(11,10,53,.86), rgba(11,10,53,.35));z-index:1"></div>
+    <div class="container" style="position:relative;z-index:2;padding:96px 32px">
+      <div class="split-head">
+        <h2 data-editable="text">SMOOTH AS SILK DELIVERY PROCESS</h2>
+        <div class="split-note">
+          <p data-editable="text">Save time every month and ensure timely delivery to clients. A true win-win.</p>
+          <a href="#contact" class="btn btn-outline-light" data-editable="text">Explore delivery tools</a>
+        </div>
+      </div>
+      <ul style="max-width:460px;border-top:1px solid rgba(255,255,255,.2)">
+        <li style="display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.2)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-upload"/></svg><span data-editable="text">Upload your brief in seconds</span></li>
+        <li style="display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.2)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-approve"/></svg><span data-editable="text">Add approvers for extra control</span></li>
+        <li style="display:flex;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.2)"><svg width="18" height="18" style="color:var(--purple-400)"><use href="#i-send"/></svg><span data-editable="text">Hit send and you're all set</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIALS MASONRY ============ -->
+  <section class="masonry-grid reveal" id="work">
+    <div class="masonry-inner">
+      <div class="masonry-cols">
+        <div class="masonry-col">
+          <div class="masonry-item img-edit-wrap"><img src="assets/placeholder.svg" alt="Client" data-editable="image"></div>
+          <div class="masonry-item quote">
+            <div class="quote-avatar img-edit-wrap"><img src="assets/placeholder.svg" alt="Reviewer" data-editable="image"></div>
+            <p data-editable="text">"Veloxitas is much more than an agency, it's a partner for my company."</p>
+          </div>
+        </div>
+        <div class="masonry-col">
+          <div class="masonry-item img-edit-wrap" style="position:relative">
+            <span class="badge-rating"><span class="stars" data-editable="text">★★★★☆</span></span>
+            <img src="assets/placeholder.svg" alt="Client" data-editable="image">
+          </div>
+          <div class="masonry-item img-edit-wrap" style="position:relative">
+            <span class="reaction-bubble" style="top:-16px;right:-16px">🙂</span>
+            <img src="assets/placeholder.svg" alt="Client" data-editable="image">
+          </div>
+        </div>
+        <div class="masonry-col">
+          <div class="masonry-item card-visual"><span data-editable="text">VELOXITAS</span></div>
+          <div class="masonry-item img-edit-wrap"><img src="assets/placeholder.svg" alt="Client" data-editable="image"></div>
+        </div>
+        <div class="masonry-col">
+          <div class="masonry-item img-edit-wrap" style="position:relative">
+            <span class="badge-rating"><span class="stars" data-editable="text">★★★★★</span></span>
+            <img src="assets/placeholder.svg" alt="Client" data-editable="image">
+          </div>
+          <div class="masonry-item img-edit-wrap" style="position:relative">
+            <span class="reaction-bubble" style="top:-16px;left:-16px">❤️</span>
+            <img src="assets/placeholder.svg" alt="Client" data-editable="image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer" id="about">
+  <div class="container footer-cols">
+    <div class="footer-col">
+      <h5 data-editable="text">Services</h5>
+      <ul>
+        <li><a href="#" data-editable="text">Strategy</a></li>
+        <li><a href="#" data-editable="text">Creative & Design</a></li>
+        <li><a href="#" data-editable="text">Paid Media</a></li>
+        <li><a href="#" data-editable="text">Content</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-editable="text">Company</h5>
+      <ul>
+        <li><a href="#" data-editable="text">About us</a></li>
+        <li><a href="#" data-editable="text">Careers</a></li>
+        <li><a href="#" data-editable="text">Press</a></li>
+        <li><a href="#" data-editable="text">Sustainability</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-editable="text">Resources</h5>
+      <ul>
+        <li><a href="#" data-editable="text">Case studies</a></li>
+        <li><a href="#" data-editable="text">Insights</a></li>
+        <li><a href="#" data-editable="text">FAQs</a></li>
+        <li><a href="#" data-editable="text">Pricing</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-editable="text">Legal</h5>
+      <ul>
+        <li><a href="#" data-editable="text">Terms of service</a></li>
+        <li><a href="#" data-editable="text">Privacy policy</a></li>
+        <li><a href="#" data-editable="text">Cookies</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5 data-editable="text">Veloxitas Creators</h5>
+      <ul>
+        <li><a href="#" data-editable="text">Partner with us</a></li>
+        <li><a href="#" data-editable="text">Affiliate program</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-watermark" aria-hidden="true">VELOXITAS</div>
+  <div class="container footer-bottom">
+    <p class="footer-legal" data-editable="text">Veloxitas Agency is a creative & growth partner for ambitious businesses. Address: Your Street, Your City, Your Country. Replace this legal line with your own company details.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M14 8.5h2.5V5H14c-2.2 0-3.5 1.4-3.5 3.6V11H8v3h2.5v6H14v-6h2.3l.4-3H14V9c0-.4.2-.5.6-.5Z"/></svg></a>
+      <a href="#" aria-label="X"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 4l16 16M20 4L4 20"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3.4"/><circle cx="16.6" cy="7.4" r="1"/></svg></a>
+      <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="4" y="4" width="16" height="16" rx="3"/><circle cx="8.3" cy="8.3" r=".6" fill="currentColor"/><path d="M8.3 11v6M12 17v-3.5c0-1.4 1-2.5 2.3-2.5s2.2 1 2.2 2.5V17"/></svg></a>
+      <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3.5" y="6.5" width="17" height="11" rx="3.5"/><path d="M10.5 10l4 2-4 2Z" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<a href="#contact" class="btn btn-primary need-help" data-editable="text">Need Help?</a>
+<div class="trust-badge"><svg><use href="#i-shield"/></svg></div>
+
+<!-- ============ EDIT TOOLBAR ============ -->
+<div class="edit-toolbar">
+  <span data-editable="false">✏️ Edit Mode</span>
+  <span class="status" id="editStatus">تغییرات ذخیره شده</span>
+  <button type="button" id="btnDownload" class="primary">⬇️ دانلود نسخه نهایی</button>
+  <button type="button" id="btnReset" class="danger">↩️ بازگردانی</button>
+  <button type="button" id="btnExit">بستن ویرایش</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
