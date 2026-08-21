@@ -100,15 +100,15 @@ p { margin: 0 0 16px; color: var(--text-muted); }
 /* -------- announcement bar -------- */
 .announcement-bar {
   background: var(--red);
-  border-top: 3px solid var(--blue);
-  border-bottom: 3px solid var(--blue);
+  border-top: 2px solid var(--blue);
+  border-bottom: 2px solid var(--blue);
   text-align: center;
-  padding: 10px 16px;
+  padding: 5px 16px;
 }
 .announcement-bar a {
   display: inline-block;
   color: #fff;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: underline;
 }
@@ -404,8 +404,8 @@ p { margin: 0 0 16px; color: var(--text-muted); }
 }
 
 @media (max-width: 720px) {
-  .announcement-bar { padding: 8px 16px; }
-  .announcement-bar a { font-size: 0.8rem; }
+  .announcement-bar { padding: 4px 16px; }
+  .announcement-bar a { font-size: 0.72rem; }
   .nav-cta { display: none; }
   .nav-toggle { display: flex; }
   .card-grid { grid-template-columns: 1fr; }
