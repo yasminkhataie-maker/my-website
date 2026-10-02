@@ -385,6 +385,7 @@ p { margin: 0 0 16px; color: var(--text-muted); }
   .about-image { order: -1; max-width: 420px; }
   .how-grid { grid-template-columns: 1fr; text-align: center; }
   .how-illustration { order: -1; }
+  .how-copy .plain-list { text-align: left; }
 }
 
 @media (max-width: 720px) {
@@ -403,7 +404,6 @@ p { margin: 0 0 16px; color: var(--text-muted); }
 .steps-list li { margin-bottom: 10px; }
 .plain-list { margin: 0 0 20px; padding-left: 22px; color: var(--text-muted); }
 .plain-list li { margin-bottom: 8px; }
-.how-grid-single { grid-template-columns: 1fr; max-width: 860px; }
 .outside-copy .btn { margin-top: 8px; }
 .closing-cta { background: var(--teal); padding: 88px 0; text-align: center; }
 .closing-cta .container { max-width: 760px; }
