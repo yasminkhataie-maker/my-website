@@ -1,0 +1,62 @@
+name: Build site
+
+# Regenerates the Insights pages, RSS feed, sitemap and the generated blocks
+# in index.html whenever content or the build script changes on main, then
+# commits the result so GitHub Pages publishes it.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "index.html"
+      - "scripts/build.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history: sitemap lastmod uses git dates
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install markdown pyyaml
+
+      - name: Build
+        run: python3 scripts/build.py
+
+      - name: Commit generated files
+        id: commit
+        run: |
+          git add -A index.html sitemap.xml insights
+          if git diff --cached --quiet; then
+            echo "No generated changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git commit -m "Regenerate site from content"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      # Pushes made with GITHUB_TOKEN may not start a Pages build on their own,
+      # so request one explicitly.
+      - name: Request GitHub Pages build
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || echo "::warning::Could not request a Pages build; it may still start from the push."

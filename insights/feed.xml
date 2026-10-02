@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Veloxitas Insights</title>
+    <link>https://veloxitas.com/insights/</link>
+    <description>Notes and research on why marketing stops working for established B2B companies, and how organisations change the way they&#x27;re seen.</description>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 Oct 2026 09:00:00 +0000</lastBuildDate>
+    <atom:link href="https://veloxitas.com/insights/feed.xml" rel="self" type="application/rss+xml"/>
+
+  </channel>
+</rss>

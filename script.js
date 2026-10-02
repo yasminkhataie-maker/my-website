@@ -16,6 +16,25 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Links with data-prefill-message (e.g. "Contribute to the research") jump to
+  // the contact form and fill in the message, unless the visitor already typed one
+  var messageField = document.getElementById('message');
+  document.querySelectorAll('[data-prefill-message]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (!messageField) return;
+      var text = link.getAttribute('data-prefill-message');
+      if (!messageField.value.trim() || messageField.dataset.prefilled === 'true') {
+        messageField.value = text;
+        messageField.dataset.prefilled = 'true';
+      }
+    });
+  });
+  if (messageField) {
+    messageField.addEventListener('input', function () {
+      messageField.dataset.prefilled = 'false';
+    });
+  }
+
   // Contact form — submits to FormSubmit.co (no server code required)
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
