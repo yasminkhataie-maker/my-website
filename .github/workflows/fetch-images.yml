@@ -2,13 +2,18 @@ name: Fetch generated images
 
 # Downloads AI-generated images (from the Higgsfield CDN only) onto the
 # incoming-images branch, so they can be optimised and added to the site.
-# Run it from the Actions tab or the API with one "file-name url" pair per line.
+# Run it from the Actions tab with one "file-name url" pair per line, or list the
+# pairs in content/incoming-images.txt and push that file to main.
 on:
+  push:
+    branches: [main]
+    paths:
+      - "content/incoming-images.txt"
   workflow_dispatch:
     inputs:
       items:
         description: 'One "file-name.png https://d8j0ntlcm91z4.cloudfront.net/..." pair per line'
-        required: true
+        required: false
 
 permissions:
   contents: write
@@ -24,6 +29,9 @@ jobs:
           ITEMS: ${{ inputs.items }}
         run: |
           set -euo pipefail
+          if [ -z "${ITEMS:-}" ] && [ -f content/incoming-images.txt ]; then
+            ITEMS="$(grep -v '^#' content/incoming-images.txt || true)"
+          fi
           mkdir -p incoming-images
           while read -r name url; do
             [ -z "${name:-}" ] && continue
@@ -36,8 +44,13 @@ jobs:
             curl -fsSL --max-time 120 -o "incoming-images/$name" "$url"
             echo "Downloaded $name ($(stat -c %s "incoming-images/$name") bytes)"
           done <<< "$ITEMS"
+          if [ -z "$(ls -A incoming-images)" ]; then
+            echo "Nothing to download."
+            echo "SKIP_COMMIT=1" >> "$GITHUB_ENV"
+          fi
 
       - name: Commit to incoming-images branch
+        if: env.SKIP_COMMIT != '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
