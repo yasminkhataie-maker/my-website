@@ -3,7 +3,8 @@
 # footer's Services column. Insights articles link to a page via `service: <tag>`.
 #
 # Fields: slug, tag, name (nav, breadcrumb, footer), card_title, card_text,
-# title (title tag), description (meta), eyebrow, h1, short_answer, is_this_you,
+# title (title tag), description (meta), eyebrow, h1, short_answer,
+# image + image_alt (banner under the short answer), is_this_you,
 # why (paragraphs; an item with heading + text becomes a sub-section),
 # how (label + text), what_you_get, faq (q + a).
 
@@ -18,6 +19,8 @@ services:
   eyebrow: The Narrative Clarity Diagnostic
   h1: Why has our marketing stopped working?
   short_answer: 'When marketing stops working in an established company, the cause is rarely the campaign itself. Usually the company has changed and its story hasn''t: it has grown, shifted direction, or entered a new market, while its positioning and message still describe the past. The Narrative Clarity Diagnostic finds where that gap is, and what to fix first.'
+  image: /assets/service-diagnostic.webp
+  image_alt: "A brass telescope and magnifying glass on a nautical chart on a ship's deck, a stormy sea behind"
   is_this_you:
   - Activity is high, but results keep fading
   - You've increased the budget, and nothing changed
@@ -60,6 +63,8 @@ services:
   eyebrow: B2B marketing strategy
   h1: A marketing strategy that matches where your company is going
   short_answer: 'A B2B marketing strategy should answer three questions: who you need to be chosen by, what they need to understand about you, and how you will reach them consistently. Many established companies have plenty of marketing activity but no shared answer to these questions. I help leadership teams define that direction and build a system to deliver it.'
+  image: /assets/service-strategy.webp
+  image_alt: "Aerial view of white sailboats sailing in formation behind a lead boat with a red sail"
   is_this_you:
   - Marketing is busy, but no one can explain how it moves the business forward
   - Campaigns, events, content and agencies each follow their own plan
@@ -102,6 +107,8 @@ services:
   eyebrow: Entering a new market
   h1: How do you get seen in a new market?
   short_answer: 'When an established company enters a new market, it usually brings the message that worked at home. But a new market reads that message differently: buyers know nothing about your reputation, decision-makers build trust in their own way, and competitors already occupy familiar positions. Being seen starts with understanding how this market will read you, then shaping your narrative for it.'
+  image: /assets/service-new-market.webp
+  image_alt: "A red-hulled ship approaching a foreign harbour and city skyline at dusk"
   is_this_you:
   - You're planning to enter, or have recently entered, the GCC, Australia or another new market
   - Your reputation at home doesn't seem to travel with you
@@ -142,6 +149,8 @@ services:
   eyebrow: Repositioning
   h1: Your company has changed. Has the way you're seen?
   short_answer: Repositioning is deciding how you want your company to be seen, by whom, and why, and then aligning everything you say and do with that decision. Established companies usually need it after growth, a change in direction, a merger, new leadership or a shift in market demand. It starts with the business, not the logo; a visual rebrand only helps once the position is clear.
+  image: /assets/service-repositioning.webp
+  image_alt: "Aerial view of a sailboat with a red sail turning onto a new course, its wake curving behind it"
   is_this_you:
   - The company has grown or changed direction, but its image hasn't
   - Clients, partners or talent still meet an earlier version of you
@@ -182,6 +191,8 @@ services:
   eyebrow: Brand narrative
   h1: Seen is not the same as understood
   short_answer: 'A brand narrative is the story that explains why your company exists, what it does differently, and why the right buyers should choose it. Many B2B companies are visible but not understood: their message makes sense inside the company, but sounds like everyone else outside it. A clear narrative gives every team, channel and partner the same story to tell.'
+  image: /assets/service-narrative.webp
+  image_alt: "A red and white lighthouse beam cutting through sea fog at blue hour"
   is_this_you:
   - People know your name, but can't say what makes you different
   - Your website, pitch deck and sales conversations tell different stories
