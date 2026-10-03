@@ -57,7 +57,8 @@ AUTHOR_BIO = ("Yasmin Khataie is the founder of Veloxitas, a Dubai-based strateg
 
 REQUIRED_FIELDS = ["title", "description", "short_answer", "date"]
 SERVICE_FIELDS = ["slug", "tag", "name", "card_title", "card_text", "title", "description",
-                  "eyebrow", "h1", "short_answer", "is_this_you", "why", "how", "what_you_get", "faq"]
+                  "eyebrow", "h1", "short_answer", "image", "image_alt", "is_this_you", "why", "how",
+                  "what_you_get", "faq"]
 AREA_SERVED = ["United Arab Emirates", "GCC", "Australia"]
 SERVICE_CTA = "Let's see what's below the surface."
 
@@ -129,6 +130,33 @@ def replace_block(text, name, content):
 
 # ---------------------------------------------------------------- content
 
+def image_size(path):
+    """Width and height of a WebP, PNG or JPEG file, for the img width/height attributes."""
+    data = path.read_bytes()[:64 * 1024]
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        chunk = data[12:16]
+        if chunk == b"VP8X":
+            return 1 + int.from_bytes(data[24:27], "little"), 1 + int.from_bytes(data[27:30], "little")
+        if chunk == b"VP8 ":
+            return int.from_bytes(data[26:28], "little") & 0x3FFF, int.from_bytes(data[28:30], "little") & 0x3FFF
+        if chunk == b"VP8L":
+            bits = int.from_bytes(data[21:25], "little")
+            return (bits & 0x3FFF) + 1, ((bits >> 14) & 0x3FFF) + 1
+    if data[:8] == b"\x89PNG\r\n\x1a\n":
+        return int.from_bytes(data[16:20], "big"), int.from_bytes(data[20:24], "big")
+    if data[:2] == b"\xff\xd8":
+        i = 2
+        while i < len(data) - 9:
+            if data[i] != 0xFF:
+                i += 1
+                continue
+            marker, length = data[i + 1], int.from_bytes(data[i + 2:i + 4], "big")
+            if marker in (0xC0, 0xC1, 0xC2):
+                return int.from_bytes(data[i + 7:i + 9], "big"), int.from_bytes(data[i + 5:i + 7], "big")
+            i += 2 + length
+    sys.exit(f"{path}: could not read image size")
+
+
 def load_services():
     data = yaml.safe_load(SERVICES_FILE.read_text(encoding="utf-8")) or {}
     services = data.get("services") or []
@@ -144,6 +172,10 @@ def load_services():
         for item in s["faq"]:
             if not isinstance(item, dict) or not item.get("q") or not item.get("a"):
                 sys.exit(f"{SERVICES_FILE}: {s['slug']}: each faq entry needs a 'q' and an 'a'")
+        image_path = ROOT / str(s["image"]).lstrip("/")
+        if not image_path.is_file():
+            sys.exit(f"{SERVICES_FILE}: {s['slug']}: image not found: {s['image']}")
+        s["image_size"] = image_size(image_path)
         s["url"] = f"/{s['slug']}/"
     for key in ("slug", "tag"):
         values = [s[key] for s in services]
@@ -575,7 +607,13 @@ def render_service(s, posts, services):
         <p class="short-answer-label">Short answer</p>
         <p>{esc(typo(s['short_answer']))}</p>
       </div>
+    </div>
 
+    <div class="hero-image service-hero-image">
+      <img src="{esc(s['image'])}" alt="{esc(s['image_alt'])}" width="{s['image_size'][0]}" height="{s['image_size'][1]}" loading="eager" decoding="async">
+    </div>
+
+    <div class="container article-container">
       <section class="service-section" aria-labelledby="is-this-you">
         <h2 id="is-this-you">Is this you?</h2>
         <ul class="service-list">
