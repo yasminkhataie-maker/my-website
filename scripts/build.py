@@ -8,13 +8,19 @@ Run from the repository root:
     python3 scripts/build.py --drafts --out /tmp/preview   # preview drafts
 
 What it does:
+  * Turns every entry in content/services.yml into a service page at /<slug>/.
   * Turns every Markdown file in content/insights/ (except drafts) into
     /insights/<slug>/index.html, plus the /insights/ index and the RSS feed
     at /insights/feed.xml.
-  * Writes /sitemap.xml (homepage, /insights/ and every published article).
+  * Writes /sitemap.xml (homepage, service pages, /insights/ and every
+    published article).
   * Fills the generated blocks in index.html:
-      - BUILD:FAQ_JSONLD   FAQPage JSON-LD built from the visible FAQ section
-      - BUILD:NAV_INSIGHTS "Insights" nav/footer link, once an article exists
+      - BUILD:FAQ_JSONLD     FAQPage JSON-LD built from the visible FAQ section
+      - BUILD:MAIN_NAV       desktop navigation (Services dropdown, Insights link
+      - BUILD:MOBILE_NAV     mobile navigation   once an article is published)
+      - BUILD:SERVICE_CARDS  "What I help with" cards
+      - BUILD:FOOTER         footer, including the Services column
+    The same navigation and footer are used on every generated page.
 
 Requires: pip install markdown pyyaml
 """
@@ -35,6 +41,7 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content" / "insights"
+SERVICES_FILE = ROOT / "content" / "services.yml"
 SITE_URL = "https://veloxitas.com"
 CALENDLY_URL = "https://calendly.com/yasmin-veloxitas"
 LINKEDIN_URL = "https://www.linkedin.com/in/yasmin-khataie/"
@@ -49,12 +56,21 @@ AUTHOR_BIO = ("Yasmin Khataie is the founder of Veloxitas, a Dubai-based strateg
               "or who are ready to change how they're seen.")
 
 REQUIRED_FIELDS = ["title", "description", "short_answer", "date"]
+SERVICE_FIELDS = ["slug", "tag", "name", "card_title", "card_text", "title", "description",
+                  "eyebrow", "h1", "short_answer", "is_this_you", "why", "how", "what_you_get", "faq"]
+AREA_SERVED = ["United Arab Emirates", "GCC", "Australia"]
+SERVICE_CTA = "Let's see what's below the surface."
 
 
 # ---------------------------------------------------------------- helpers
 
 def esc(text):
     return html.escape(str(text), quote=True)
+
+
+def typo(text):
+    """Typographic apostrophes for visible copy, matching the rest of the site."""
+    return str(text).strip().replace("'", "\u2019")
 
 
 def to_date(value, field, source):
@@ -101,16 +117,44 @@ def json_ld(data):
 
 def replace_block(text, name, content):
     """Replace every <!-- BUILD:name ... --> ... <!-- /BUILD:name --> block."""
-    pattern = re.compile(r"(<!-- BUILD:%s(?: [^>]*)? -->)(.*?)(<!-- /BUILD:%s -->)" % (name, name), re.S)
+    pattern = re.compile(r"(<!-- BUILD:%s(?: [^>]*)? -->)(.*?)([ \t]*<!-- /BUILD:%s -->)" % (name, name), re.S)
     if not pattern.search(text):
         sys.exit(f"index.html: missing <!-- BUILD:{name} --> block")
     sep = "\n" if "\n" in content else ""
-    return pattern.sub(lambda m: m.group(1) + sep + content + sep + m.group(3), text)
+    def fill(m):
+        indent = m.group(3)[:len(m.group(3)) - len(m.group(3).lstrip())] if sep else ""
+        return m.group(1) + sep + indent + content + sep + m.group(3)
+    return pattern.sub(fill, text)
 
 
 # ---------------------------------------------------------------- content
 
-def load_posts(include_drafts):
+def load_services():
+    data = yaml.safe_load(SERVICES_FILE.read_text(encoding="utf-8")) or {}
+    services = data.get("services") or []
+    for s in services:
+        missing = [f for f in SERVICE_FIELDS if not s.get(f)]
+        if missing:
+            sys.exit(f"{SERVICES_FILE}: service {s.get('slug')!r} is missing: {', '.join(missing)}")
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", s["slug"]) or s["slug"] in ("insights", "assets"):
+            sys.exit(f"{SERVICES_FILE}: invalid slug {s['slug']!r}")
+        for item in s["how"]:
+            if not isinstance(item, dict) or not item.get("label") or not item.get("text"):
+                sys.exit(f"{SERVICES_FILE}: {s['slug']}: each 'how' item needs a label and text")
+        for item in s["faq"]:
+            if not isinstance(item, dict) or not item.get("q") or not item.get("a"):
+                sys.exit(f"{SERVICES_FILE}: {s['slug']}: each faq entry needs a 'q' and an 'a'")
+        s["url"] = f"/{s['slug']}/"
+    for key in ("slug", "tag"):
+        values = [s[key] for s in services]
+        dupes = {v for v in values if values.count(v) > 1}
+        if dupes:
+            sys.exit(f"{SERVICES_FILE}: duplicate {key}(s): {', '.join(sorted(dupes))}")
+    return services
+
+
+def load_posts(include_drafts, services):
+    service_tags = {s["tag"] for s in services}
     posts = []
     for path in sorted(CONTENT_DIR.glob("*.md")):
         if path.name.lower() == "readme.md" or path.name.startswith("_"):
@@ -134,6 +178,9 @@ def load_posts(include_drafts):
         for item in faq:
             if not isinstance(item, dict) or not item.get("q") or not item.get("a"):
                 sys.exit(f"{path}: each faq entry needs a 'q' and an 'a'")
+        service = str(meta.get("service") or "").strip()
+        if service and service not in service_tags:
+            sys.exit(f"{path}: service must be one of {', '.join(sorted(service_tags))}, got {service!r}")
         body_html = markdown.markdown(m.group(2), extensions=["extra", "sane_lists"])
         if re.search(r"<h1[\s>]", body_html):
             sys.exit(f"{path}: the article body must not contain a level-1 heading (#); "
@@ -148,6 +195,7 @@ def load_posts(include_drafts):
             "tags": [str(t).strip() for t in (meta.get("tags") or [])],
             "image": str(meta.get("image") or DEFAULT_IMAGE),
             "faq": faq,
+            "service": service,
             "body": body_html,
             "draft": bool(meta.get("draft")),
             "url": f"/insights/{slug}/",
@@ -169,12 +217,81 @@ def related_posts(post, posts, limit=3):
 
 # ---------------------------------------------------------------- templates
 
-def nav_insights_link(has_posts):
-    return '<a href="/insights/">Insights</a>' if has_posts else ""
+SECTION_LINKS = [("story", "The story"), ("problems", "What's holding you back"),
+                 ("how-i-work", "How I work"), ("research", "Research"), ("about", "About"),
+                 ("faqs", "FAQs")]
 
 
-def page(head, body, has_posts):
-    insights = nav_insights_link(has_posts)
+def section_links(home, names, indent):
+    """Homepage section links; on other pages they point back to /#section."""
+    prefix = "" if home else "/"
+    return "\n".join(f'{indent}<a href="{prefix}#{anchor}">{label}</a>'
+                     for anchor, label in SECTION_LINKS if label in names)
+
+
+def main_nav(services, has_posts, home):
+    services_links = "\n".join(f'            <a href="{s["url"]}">{esc(s["name"])}</a>' for s in services)
+    insights = '\n        <a href="/insights/">Insights</a>' if has_posts else ""
+    return f"""<nav class="main-nav" aria-label="Main">
+{section_links(home, ["The story", "What's holding you back"], "        ")}
+        <div class="nav-dropdown">
+          <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="services-menu">Services</button>
+          <div class="nav-dropdown-menu" id="services-menu">
+{services_links}
+          </div>
+        </div>
+{section_links(home, ["How I work", "Research", "About", "FAQs"], "        ")}{insights}
+      </nav>"""
+
+
+def mobile_nav(services, has_posts, home):
+    services_links = "\n".join(f'          <a href="{s["url"]}">{esc(s["name"])}</a>' for s in services)
+    insights = '\n      <a href="/insights/">Insights</a>' if has_posts else ""
+    return f"""<nav class="mobile-menu" id="mobile-menu" aria-label="Main (mobile)">
+{section_links(home, ["The story", "What's holding you back"], "      ")}
+      <details class="mobile-services">
+        <summary>Services</summary>
+        <div class="mobile-services-list">
+{services_links}
+        </div>
+      </details>
+{section_links(home, ["How I work", "Research", "About", "FAQs"], "      ")}{insights}
+      <a href="{CALENDLY_URL}" target="_blank" rel="noopener" class="btn btn-dark">Book a clarity conversation</a>
+    </nav>"""
+
+
+def footer(services, has_posts):
+    services_links = "\n".join(f'        <li><a href="{s["url"]}">{esc(s["name"])}</a></li>' for s in services)
+    insights = '\n        <a href="/insights/">Insights</a>' if has_posts else ""
+    return f"""<div class="container footer-inner">
+    <div class="footer-main">
+      <p class="footer-name">Veloxitas — Yasmin Khataie · Dubai, UAE</p>
+      <p class="footer-tagline">Strategy for established B2B organisations whose marketing has stopped working, or who are ready to change how they&rsquo;re seen.</p>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="{CALENDLY_URL}" target="_blank" rel="noopener">Book a clarity conversation</a>{insights}
+      </nav>
+      <p class="footer-copy">&copy; 2026 Veloxitas</p>
+    </div>
+    <nav class="footer-services" aria-labelledby="footer-services-title">
+      <p class="footer-heading" id="footer-services-title">Services</p>
+      <ul>
+{services_links}
+      </ul>
+    </nav>
+  </div>"""
+
+
+def service_cards(services):
+    cards = "\n".join(f"""        <a class="service-card" href="{s['url']}">
+          <h3>{esc(typo(s['card_title']))}</h3>
+          <p>{esc(typo(s['card_text']))}</p>
+          <span class="service-card-arrow" aria-hidden="true">&rarr;</span>
+        </a>""" for s in services)
+    return f'<div class="service-grid">\n{cards}\n      </div>'
+
+
+def page(head, body, services, has_posts):
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -199,30 +316,13 @@ def page(head, body, has_posts):
       <a href="/" class="logo" aria-label="Veloxitas — home">
         <img src="/assets/logo-veloxitas.webp" alt="Veloxitas" class="logo-img" width="400" height="88">
       </a>
-      <nav class="main-nav" aria-label="Main">
-        <a href="/#story">The story</a>
-        <a href="/#problems">What's holding you back</a>
-        <a href="/#how-i-work">How I work</a>
-        <a href="/#research">Research</a>
-        <a href="/#about">About</a>
-        <a href="/#faqs">FAQs</a>
-        {insights}
-      </nav>
+      {main_nav(services, has_posts, home=False)}
       <a href="{CALENDLY_URL}" target="_blank" rel="noopener" class="btn btn-dark nav-cta">Book a clarity conversation</a>
       <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
         <span></span><span></span><span></span>
       </button>
     </div>
-    <nav class="mobile-menu" id="mobile-menu" aria-label="Main (mobile)">
-      <a href="/#story">The story</a>
-      <a href="/#problems">What's holding you back</a>
-      <a href="/#how-i-work">How I work</a>
-      <a href="/#research">Research</a>
-      <a href="/#about">About</a>
-      <a href="/#faqs">FAQs</a>
-      {insights}
-      <a href="{CALENDLY_URL}" target="_blank" rel="noopener" class="btn btn-dark">Book a clarity conversation</a>
-    </nav>
+    {mobile_nav(services, has_posts, home=False)}
   </header>
 </div>
 
@@ -231,16 +331,7 @@ def page(head, body, has_posts):
 </main>
 
 <footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-name">Veloxitas — Yasmin Khataie · Dubai, UAE</p>
-    <p class="footer-tagline">Strategy for established B2B organisations whose marketing has stopped working, or who are ready to change how they&rsquo;re seen.</p>
-    <nav class="footer-links" aria-label="Footer">
-      <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="{CALENDLY_URL}" target="_blank" rel="noopener">Book a clarity conversation</a>
-      {insights}
-    </nav>
-    <p class="footer-copy">&copy; 2026 Veloxitas</p>
-  </div>
+  {footer(services, has_posts)}
 </footer>
 
 <script src="/script.js"></script>
@@ -261,7 +352,7 @@ def social_head(title, description, url, image, og_type):
 <meta name="twitter:card" content="summary_large_image">"""
 
 
-def render_index(posts):
+def render_index(posts, services):
     if posts:
         items = "\n".join(f"""      <li class="insight-item">
         <h2><a href="{p['url']}">{esc(p['title'])}</a></h2>
@@ -289,10 +380,10 @@ def render_index(posts):
     </div>
   </section>
 """
-    return page(head, body, bool(posts))
+    return page(head, body, services, bool(posts))
 
 
-def render_post(post, posts):
+def render_post(post, posts, services):
     url = post["url"]
     title_tag = f"{post['title']} | Veloxitas"
     head = social_head(title_tag, post["description"], url, post["image"], "article")
@@ -342,6 +433,13 @@ def render_post(post, posts):
       </section>
 """
 
+    service_html = ""
+    service = next((s for s in services if s["tag"] == post["service"]), None)
+    if service:
+        service_html = f"""
+      <p class="article-service-link">Related: <a href="{service['url']}">{esc(service['name'])}</a></p>
+"""
+
     related = related_posts(post, posts)
     related_html = ""
     if related:
@@ -378,7 +476,7 @@ def render_post(post, posts):
       <div class="article-body">
 {post['body']}
       </div>
-{faq_html}
+{faq_html}{service_html}
       <aside class="author-box" aria-label="About the author">
         <img src="/assets/about-me-new.webp" alt="Portrait of Yasmin Khataie" width="900" height="879" loading="lazy" decoding="async">
         <div>
@@ -396,7 +494,128 @@ def render_post(post, posts):
     </div>
   </article>
 """
-    return page(head, body, True)
+    return page(head, body, services, True)
+
+
+def render_service(s, posts, services):
+    url = s["url"]
+    head = social_head(s["title"], s["description"], url, DEFAULT_IMAGE, "website")
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": typo(s["eyebrow"]),
+        "description": typo(s["short_answer"]),
+        "provider": {"@id": SITE_URL + "/#org"},
+        "areaServed": AREA_SERVED,
+        "url": abs_url(url),
+    })
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": typo(item["q"]),
+            "acceptedAnswer": {"@type": "Answer", "text": typo(item["a"])},
+        } for item in s["faq"]],
+    })
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+            {"@type": "ListItem", "position": 2, "name": typo(s["name"]), "item": abs_url(url)},
+        ],
+    })
+
+    def li(items):
+        return "\n".join(f"          <li>{esc(typo(i))}</li>" for i in items)
+
+    why = []
+    for block in s["why"]:
+        if isinstance(block, dict):
+            why.append(f"""        <h3>{esc(typo(block['heading']))}</h3>
+        <p>{esc(typo(block['text']))}</p>""")
+        else:
+            why.append(f"        <p>{esc(typo(block))}</p>")
+    how = "\n".join(f"          <li><strong>{esc(typo(i['label']))}:</strong> {esc(typo(i['text']))}</li>"
+                    for i in s["how"])
+    faq = "\n".join(f"""        <details class="faq-accordion">
+          <summary><h3>{esc(typo(i['q']))}</h3></summary>
+          <p>{esc(typo(i['a']))}</p>
+        </details>""" for i in s["faq"])
+
+    related = [p for p in posts if p["service"] == s["tag"]]
+    related_html = ""
+    if related:
+        items = "\n".join(f"""          <li><a href="{p['url']}">{esc(p['title'])}</a>
+            <span class="insight-meta">{human_date(p['date'])}</span></li>""" for p in related)
+        related_html = f"""
+      <section class="article-related service-section" aria-labelledby="related-insights-heading">
+        <h2 id="related-insights-heading">Related insights</h2>
+        <ul>
+{items}
+        </ul>
+      </section>
+"""
+
+    body = f"""
+  <article class="service-page">
+    <div class="container article-container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li aria-current="page">{esc(typo(s['name']))}</li>
+        </ol>
+      </nav>
+
+      <p class="eyebrow service-eyebrow">{esc(typo(s['eyebrow']))}</p>
+      <h1>{esc(typo(s['h1']))}</h1>
+
+      <div class="short-answer">
+        <p class="short-answer-label">Short answer</p>
+        <p>{esc(typo(s['short_answer']))}</p>
+      </div>
+
+      <section class="service-section" aria-labelledby="is-this-you">
+        <h2 id="is-this-you">Is this you?</h2>
+        <ul class="service-list">
+{li(s['is_this_you'])}
+        </ul>
+      </section>
+
+      <section class="service-section" aria-labelledby="why-it-happens">
+        <h2 id="why-it-happens">Why it happens</h2>
+{chr(10).join(why)}
+      </section>
+
+      <section class="service-section" aria-labelledby="how-i-work-on-this">
+        <h2 id="how-i-work-on-this">How I work on this</h2>
+        <ol class="steps-list">
+{how}
+        </ol>
+      </section>
+
+      <section class="service-section" aria-labelledby="what-you-get">
+        <h2 id="what-you-get">What you get</h2>
+        <ul class="service-list">
+{li(s['what_you_get'])}
+        </ul>
+      </section>
+
+      <section class="service-section" aria-labelledby="service-faqs">
+        <h2 id="service-faqs">FAQs</h2>
+{faq}
+      </section>
+
+      <section class="service-cta">
+        <h2>{esc(typo(SERVICE_CTA))}</h2>
+        <a href="{CALENDLY_URL}" target="_blank" rel="noopener" class="btn btn-teal">Book a clarity conversation</a>
+      </section>
+{related_html}
+    </div>
+  </article>
+"""
+    return page(head, body, services, bool(posts))
 
 
 def render_feed(posts):
@@ -426,9 +645,11 @@ def render_feed(posts):
 """
 
 
-def render_sitemap(posts, home_lastmod):
+def render_sitemap(posts, services, home_lastmod, services_lastmod):
     insights_lastmod = max([home_lastmod] + [p["updated"] for p in posts]) if posts else home_lastmod
-    urls = [(SITE_URL + "/", home_lastmod), (SITE_URL + "/insights/", insights_lastmod)]
+    urls = [(SITE_URL + "/", home_lastmod)]
+    urls += [(abs_url(s["url"]), services_lastmod) for s in services]
+    urls += [(SITE_URL + "/insights/", insights_lastmod)]
     urls += [(abs_url(p["url"]), p["updated"]) for p in posts]
     entries = "\n".join(f"""  <url>
     <loc>{esc(loc)}</loc>
@@ -466,28 +687,37 @@ def homepage_faq_jsonld(index_html):
 # ---------------------------------------------------------------- main
 
 def build(out_dir, include_drafts):
-    posts = load_posts(include_drafts)
+    services = load_services()
+    posts = load_posts(include_drafts, services)
+    has_posts = bool(posts)
     files = {}
 
     index_path = ROOT / "index.html"
     index_html = index_path.read_text(encoding="utf-8")
     index_html = replace_block(index_html, "FAQ_JSONLD", homepage_faq_jsonld(index_html))
-    index_html = replace_block(index_html, "NAV_INSIGHTS", nav_insights_link(bool(posts)))
+    index_html = replace_block(index_html, "MAIN_NAV", main_nav(services, has_posts, home=True))
+    index_html = replace_block(index_html, "MOBILE_NAV", mobile_nav(services, has_posts, home=True))
+    index_html = replace_block(index_html, "SERVICE_CARDS", service_cards(services))
+    index_html = replace_block(index_html, "FOOTER", footer(services, has_posts))
     files["index.html"] = index_html
 
-    files["insights/index.html"] = render_index(posts)
+    for s in services:
+        files[f"{s['slug']}/index.html"] = render_service(s, posts, services)
+    files["insights/index.html"] = render_index(posts, services)
     files["insights/feed.xml"] = render_feed(posts)
     for p in posts:
-        files[f"insights/{p['slug']}/index.html"] = render_post(p, posts)
-    files["sitemap.xml"] = render_sitemap(posts, git_date(index_path))
+        files[f"insights/{p['slug']}/index.html"] = render_post(p, posts, services)
+    files["sitemap.xml"] = render_sitemap(posts, services, git_date(index_path), git_date(SERVICES_FILE))
 
-    # article folders generated earlier whose source is gone (or became a draft)
+    # page folders generated earlier whose source is gone (or became a draft)
     stale = []
-    insights_out = out_dir / "insights"
-    if insights_out.is_dir():
-        for d in insights_out.iterdir():
+    for parent in (out_dir, out_dir / "insights"):
+        if not parent.is_dir():
+            continue
+        for d in parent.iterdir():
             page_file = d / "index.html"
-            if d.is_dir() and f"insights/{d.name}/index.html" not in files and page_file.is_file() \
+            rel = f"{d.relative_to(out_dir).as_posix()}/index.html"
+            if d.is_dir() and rel not in files and page_file.is_file() \
                     and GENERATED_MARK in page_file.read_text(encoding="utf-8"):
                 stale.append(d)
     return files, stale

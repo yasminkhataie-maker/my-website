@@ -1,0 +1,212 @@
+# Service pages for veloxitas.com. scripts/build.py turns each entry into /<slug>/,
+# the "What I help with" cards on the homepage, the Services nav dropdown and the
+# footer's Services column. Insights articles link to a page via `service: <tag>`.
+#
+# Fields: slug, tag, name (nav, breadcrumb, footer), card_title, card_text,
+# title (title tag), description (meta), eyebrow, h1, short_answer, is_this_you,
+# why (paragraphs; an item with heading + text becomes a sub-section),
+# how (label + text), what_you_get, faq (q + a).
+
+services:
+- slug: narrative-clarity-diagnostic
+  tag: diagnostic
+  name: Narrative Clarity Diagnostic
+  card_title: When marketing stops working
+  card_text: Find out why, and what to fix first.
+  title: Narrative Clarity Diagnostic | When B2B Marketing Stops Working – Veloxitas
+  description: 'A structured diagnostic for established B2B organisations whose marketing has stopped working: how you''re seen, understood and chosen, and what to fix first. By Yasmin Khataie, Dubai.'
+  eyebrow: The Narrative Clarity Diagnostic
+  h1: Why has our marketing stopped working?
+  short_answer: 'When marketing stops working in an established company, the cause is rarely the campaign itself. Usually the company has changed and its story hasn''t: it has grown, shifted direction, or entered a new market, while its positioning and message still describe the past. The Narrative Clarity Diagnostic finds where that gap is, and what to fix first.'
+  is_this_you:
+  - Activity is high, but results keep fading
+  - You've increased the budget, and nothing changed
+  - You've changed agencies, and the problem moved with you
+  - Leadership, sales and marketing describe the company in different ways
+  - The market still sees the company you were, not the one you've become
+  why:
+  - Most companies don't notice the moment their marketing stops working. The campaigns continue, reports still show activity, and the budget is spent. But somewhere along the way, what the company says stopped matching what it is, where it is going, or what its buyers need to hear.
+  - 'From the inside, this is hard to see. The message feels familiar, so it still feels right. That is why more spend, a new agency or a new logo rarely fixes it: they amplify a story that no longer works.'
+  how:
+  - label: Listen
+    text: conversations with leadership and, where useful, sales, marketing and partners, to understand the company's story and where it wants to go.
+  - label: Diagnose
+    text: a structured review of positioning, message, market approach, customer journey and how teams and partners work together, to find where you're not being seen, where you're misunderstood, and why.
+  - label: Narrative
+    text: a clear direction for the story the company needs to tell, to the people it needs to reach.
+  - label: System
+    text: a prioritised roadmap for who delivers it, where, when and how.
+  what_you_get:
+  - A clear picture of where your positioning, message and market approach are working, and where they are not
+  - The gaps between how you see yourselves and how your market sees you
+  - 'A prioritised roadmap: what to fix first, what to stop, and what to build'
+  - The option to have me direct the execution with my specialist network
+  faq:
+  - q: How long does the diagnostic take?
+    a: It depends on the size of the company and how many people need to be heard. The scope and timeline are agreed after the first clarity conversation.
+  - q: Who needs to be involved?
+    a: At minimum, the person who owns the company's direction. In most cases, a few key decision-makers from leadership, sales and marketing give a fuller picture.
+  - q: Is this a marketing audit?
+    a: Not only. A marketing audit looks at channels and performance. The diagnostic looks at why the company is or isn't being understood and chosen, which includes marketing, but also positioning, message, customer journey and how teams work together.
+  - q: What happens after the diagnostic?
+    a: You can take the roadmap to your own team or agency, or I can direct the execution with a specialist network, so you have one point of accountability for the result.
+- slug: b2b-marketing-strategy
+  tag: strategy
+  name: B2B marketing strategy
+  card_title: B2B marketing strategy
+  card_text: A direction and system your team can deliver.
+  title: B2B Marketing Strategy for Established Companies | Veloxitas, Dubai
+  description: 'Marketing strategy for established B2B organisations in the UAE, GCC and Australia: clear direction, narrative and a system your team or agency can deliver. By Yasmin Khataie.'
+  eyebrow: B2B marketing strategy
+  h1: A marketing strategy that matches where your company is going
+  short_answer: 'A B2B marketing strategy should answer three questions: who you need to be chosen by, what they need to understand about you, and how you will reach them consistently. Many established companies have plenty of marketing activity but no shared answer to these questions. I help leadership teams define that direction and build a system to deliver it.'
+  is_this_you:
+  - Marketing is busy, but no one can explain how it moves the business forward
+  - Campaigns, events, content and agencies each follow their own plan
+  - Your team or agency asks for direction, and gets different answers
+  - The strategy was written for an earlier version of the company
+  - You're not sure if the problem is strategy, execution or the team
+  why:
+  - 'In growing companies, marketing often grows by addition: a new channel, a new event, a new agency, a new campaign. Each decision makes sense on its own. Over time, the activity outgrows the strategy, and no one owns the full picture.'
+  - The result is a team that works hard in different directions, and a market that receives a mixed message.
+  - heading: Strategy problem or execution problem?
+    text: If activity is high but results keep falling, and different teams describe the company in different ways, it's usually strategy. If the direction is clear and agreed but delivery is inconsistent, it's usually execution. Most companies have some of both, which is why I look at the two together.
+  how:
+  - label: Listen
+    text: understand the business goals, the buyers, and how decisions are made on their side
+  - label: Diagnose
+    text: review current positioning, channels, activity and team or agency set-up against those goals
+  - label: Narrative
+    text: define the core message and how it adapts for each audience
+  - label: System
+    text: set priorities, channels, responsibilities, timing and measures, so the strategy is delivered, not filed
+  what_you_get:
+  - A clear marketing direction leadership can agree on
+  - 'Priorities: what to keep, what to stop, what to start'
+  - A plan your team or agency can execute, with clear ownership
+  - A view on whether your current team or agency set-up fits the strategy
+  faq:
+  - q: Do you replace our marketing team or agency?
+    a: No. I define the direction and the system. Your team or agency delivers it, or I direct a specialist network if you need execution support.
+  - q: Do you work with companies outside the UAE?
+    a: Yes. I work with organisations across the UAE, the wider GCC and Australia.
+  - q: What size of company do you work with?
+    a: Established B2B organisations that have outgrown how they market themselves, typically led by founders, C-level executives or senior directors.
+- slug: new-market-positioning
+  tag: new-market
+  name: Entering a new market
+  card_title: Entering a new market
+  card_text: Be seen and trusted by the decision-makers you need.
+  title: Being Seen in a New Market | B2B Positioning for the GCC & Australia – Veloxitas
+  description: 'For established B2B companies entering the GCC, Australia or another new market: how to be seen, understood and trusted by the decision-makers you need to win. By Yasmin Khataie, Dubai.'
+  eyebrow: Entering a new market
+  h1: How do you get seen in a new market?
+  short_answer: 'When an established company enters a new market, it usually brings the message that worked at home. But a new market reads that message differently: buyers know nothing about your reputation, decision-makers build trust in their own way, and competitors already occupy familiar positions. Being seen starts with understanding how this market will read you, then shaping your narrative for it.'
+  is_this_you:
+  - You're planning to enter, or have recently entered, the GCC, Australia or another new market
+  - Your reputation at home doesn't seem to travel with you
+  - Meetings happen, but decisions don't follow
+  - Your materials are translated, but not really understood
+  - Local competitors look and sound more familiar to buyers than you do
+  why:
+  - A company's reputation is built over years in one market. In a new market, that history is invisible. What remains is how you present yourself, and that presentation was designed for people who already knew you.
+  - Markets also read the same message differently. What signals confidence in one place can read as distance in another. What sounds premium at home can sound the same as everyone else in a crowded harbour.
+  how:
+  - label: Listen
+    text: your goals for the market, your strengths at home, and what you already know about the buyers there
+  - label: Diagnose
+    text: how your current positioning and materials are likely to be read by decision-makers in the new market, and where you blend in with competitors
+  - label: Narrative
+    text: a story that carries your strengths into the new market in a way its buyers understand and trust
+  - label: System
+    text: channels, presence, partners and timing for being seen, with execution directed through a specialist network if needed
+  what_you_get:
+  - A clear view of how the new market is likely to see you today
+  - A positioning and narrative built for that market's decision-makers
+  - 'A plan for presence: where to show up, with whom, and in what order'
+  - Guidance on what to adapt and what to keep from your home-market brand
+  faq:
+  - q: Do you help with licensing, legal set-up or logistics?
+    a: 'No. My work focuses on how you are seen, understood and trusted in the new market: positioning, narrative, presence and the system to deliver them.'
+  - q: When should we start?
+    a: Ideally before you enter. A clear diagnosis beforehand usually costs far less than correcting course after the market has formed its first impression.
+  - q: Which markets do you work with?
+    a: Mainly the UAE, the wider GCC and Australia, including companies moving between them.
+- slug: repositioning
+  tag: repositioning
+  name: Repositioning
+  card_title: Repositioning
+  card_text: When the company has changed, but the way you're seen hasn't.
+  title: Repositioning for Established B2B Companies | Change How You're Seen – Veloxitas
+  description: 'When your company has outgrown how it''s seen: repositioning for established B2B organisations after growth, a change in direction or a new strategy. By Yasmin Khataie, Dubai.'
+  eyebrow: Repositioning
+  h1: Your company has changed. Has the way you're seen?
+  short_answer: Repositioning is deciding how you want your company to be seen, by whom, and why, and then aligning everything you say and do with that decision. Established companies usually need it after growth, a change in direction, a merger, new leadership or a shift in market demand. It starts with the business, not the logo; a visual rebrand only helps once the position is clear.
+  is_this_you:
+  - The company has grown or changed direction, but its image hasn't
+  - Clients, partners or talent still meet an earlier version of you
+  - You look modern and polished, but so does everyone around you
+  - New leadership wants the market to see the company differently
+  - You're considering a rebrand, but aren't sure what should change
+  why:
+  - A company's image is set at a certain moment, and the company keeps moving. New services, new clients, new markets and new leadership change what the company is, while its message, materials and reputation stay where they were.
+  - The gap grows quietly. By the time it is noticed, the market has already formed a view, and it is the old one.
+  - heading: Rebrand or reposition?
+    text: 'A rebrand changes how you look. Repositioning changes how you are understood. Most established companies need repositioning first: a clear decision about who they serve and what they want to be known for. If the visual identity then needs to change, that comes last.'
+  how:
+  - label: Listen
+    text: where the company is today, where it is going, and how leadership wants it to be seen
+  - label: Diagnose
+    text: how the market sees you now, and where that differs from who you have become
+  - label: Narrative
+    text: the new position and the story that carries it
+  - label: System
+    text: how the new position shows up across messaging, sales, channels, events and partners, so it is lived, not just announced
+  what_you_get:
+  - A clear position leadership can agree on and explain
+  - A narrative that connects where you've been to where you're going
+  - A plan for rolling it out across every place the market meets you
+  - A view on whether, and how much, the visual identity needs to change
+  faq:
+  - q: Will we need a new logo?
+    a: Not necessarily. Many repositioning projects need a clearer story far more than a new look. If the visual identity holds the company back, I'll say so, and that change comes after the position is clear.
+  - q: How do we avoid confusing existing clients?
+    a: 'A good repositioning tells existing clients a story that makes sense to them: how the company has grown and what that means for them. Planning that story is part of the work.'
+- slug: b2b-brand-narrative
+  tag: narrative
+  name: Brand narrative
+  card_title: Brand narrative
+  card_text: Be understood, not just seen.
+  title: B2B Brand Narrative & Messaging | Be Understood, Not Just Seen – Veloxitas
+  description: 'For B2B companies that are visible but not understood: a clear brand narrative and messaging that decision-makers remember and trust. By Yasmin Khataie, Dubai.'
+  eyebrow: Brand narrative
+  h1: Seen is not the same as understood
+  short_answer: 'A brand narrative is the story that explains why your company exists, what it does differently, and why the right buyers should choose it. Many B2B companies are visible but not understood: their message makes sense inside the company, but sounds like everyone else outside it. A clear narrative gives every team, channel and partner the same story to tell.'
+  is_this_you:
+  - People know your name, but can't say what makes you different
+  - Your website, pitch deck and sales conversations tell different stories
+  - 'Your message sounds like every competitor''s: modern, innovative, trusted, premium'
+  - Each new campaign starts from a blank page
+  - Senior decision-makers don't remember what you said after the meeting
+  why:
+  - Inside a company, everyone knows what it does and why it matters, so the message gets written for people who already understand. Outside, buyers meet that message without context, among many others that sound alike.
+  - In crowded markets, the safest-sounding words become the most common ones. Looking right is not the same as standing out.
+  how:
+  - label: Listen
+    text: the company's real story, from leadership, teams and, where possible, clients
+  - label: Diagnose
+    text: how your current message is heard, and where it blends in with competitors
+  - label: Narrative
+    text: the core story, the proof behind it, and how it adapts for each audience
+  - label: System
+    text: how the narrative reaches every touchpoint, from website and sales materials to events and partners
+  what_you_get:
+  - A clear core narrative and messaging framework
+  - Key messages for each priority audience
+  - Proof points that make the story credible
+  - Guidance for teams and agencies so everyone tells the same story
+  faq:
+  - q: Is this copywriting?
+    a: No. Copywriting expresses a message. This work decides what the message should be. Once the narrative is clear, your team or agency writes from it, or I direct the specialists who do.
+  - q: How is this different from a brand strategy?
+    a: It is part of it. The narrative is the part of brand strategy that decides what the market should understand about you, and it is often the part that's missing.

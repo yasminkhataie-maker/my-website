@@ -10,6 +10,9 @@ date: 2026-10-02
 updated: 2026-10-02
 tags:
   - marketing-strategy
+# Optional: links the article to a service page, and lists it there under "Related insights".
+# One of: diagnostic, strategy, new-market, repositioning, narrative
+service: diagnostic
 image: /assets/hero-iceberg.jpg
 faq:
   - q: "An optional question readers often ask about this topic?"
