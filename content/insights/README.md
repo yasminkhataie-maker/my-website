@@ -24,6 +24,7 @@ published article, "Insights" also appears in the site's navigation and footer.
 | `date` | yes | Publish date, `YYYY-MM-DD`. Articles are listed newest first. |
 | `updated` | no | Last update, `YYYY-MM-DD`. Defaults to `date`. |
 | `tags` | no | List of tags. Related articles are the ones sharing a tag. |
+| `service` | no | Links the article to a service page: `diagnostic`, `strategy`, `new-market`, `repositioning` or `narrative`. The article shows "Related: <service>" and the service page lists it under "Related insights". |
 | `image` | no | Social preview image path, e.g. `/assets/insights/my-image.jpg`. Defaults to the hero image. |
 | `faq` | no | List of `q` / `a` pairs, shown after the body and output as FAQPage JSON-LD. |
 | `draft` | no | `true` keeps the article unpublished. |
@@ -35,3 +36,9 @@ pip install markdown pyyaml
 python3 scripts/build.py            # build published articles in place
 python3 scripts/build.py --drafts --out /tmp/preview   # also render drafts, into a copy
 ```
+
+## Service pages
+
+The five service pages (`/narrative-clarity-diagnostic/` and so on) are built from
+`content/services.yml` by the same script. Edit the copy there; the homepage cards,
+the Services menu and the footer update with it.

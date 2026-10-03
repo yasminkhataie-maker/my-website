@@ -16,6 +16,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Services dropdown (desktop): opens on hover/focus via CSS; click toggles it
+  // for touch and keyboard users, Escape or a click elsewhere closes it
+  document.querySelectorAll('.nav-dropdown').forEach(function (dropdown) {
+    var button = dropdown.querySelector('.nav-dropdown-toggle');
+    if (!button) return;
+    function setOpen(open) {
+      dropdown.classList.toggle('open', open);
+      button.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    button.addEventListener('click', function (e) {
+      e.stopPropagation();
+      setOpen(!dropdown.classList.contains('open'));
+    });
+    dropdown.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        setOpen(false);
+        button.focus();
+      }
+    });
+    dropdown.addEventListener('focusout', function (e) {
+      if (!dropdown.contains(e.relatedTarget)) setOpen(false);
+    });
+    document.addEventListener('click', function (e) {
+      if (!dropdown.contains(e.target)) setOpen(false);
+    });
+  });
+
   // Links with data-prefill-message (e.g. "Contribute to the research") jump to
   // the contact form and fill in the message, unless the visitor already typed one
   var messageField = document.getElementById('message');
