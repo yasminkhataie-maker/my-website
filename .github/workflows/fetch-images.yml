@@ -1,0 +1,47 @@
+name: Fetch generated images
+
+# Downloads AI-generated images (from the Higgsfield CDN only) onto the
+# incoming-images branch, so they can be optimised and added to the site.
+# Run it from the Actions tab or the API with one "file-name url" pair per line.
+on:
+  workflow_dispatch:
+    inputs:
+      items:
+        description: 'One "file-name.png https://d8j0ntlcm91z4.cloudfront.net/..." pair per line'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download images
+        env:
+          ITEMS: ${{ inputs.items }}
+        run: |
+          set -euo pipefail
+          mkdir -p incoming-images
+          while read -r name url; do
+            [ -z "${name:-}" ] && continue
+            if ! [[ "$name" =~ ^[a-z0-9-]+\.(png|jpg|jpeg|webp)$ ]]; then
+              echo "::error::Invalid file name: $name"; exit 1
+            fi
+            if ! [[ "$url" =~ ^https://d8j0ntlcm91z4\.cloudfront\.net/[A-Za-z0-9_./-]+$ ]]; then
+              echo "::error::URL not allowed: $url"; exit 1
+            fi
+            curl -fsSL --max-time 120 -o "incoming-images/$name" "$url"
+            echo "Downloaded $name ($(stat -c %s "incoming-images/$name") bytes)"
+          done <<< "$ITEMS"
+
+      - name: Commit to incoming-images branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B incoming-images
+          git add incoming-images
+          git commit -m "Add generated images for review"
+          git push -f origin incoming-images
