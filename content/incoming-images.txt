@@ -1,6 +1,0 @@
-# Generated images for the service pages, fetched by .github/workflows/fetch-images.yml
-service-diagnostic.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261003_101000_25e7b3c7-8e5f-4ee9-8870-2dae21e2d741.png
-service-strategy.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261003_101001_b4a7993b-eed5-43ad-ad41-f15a3b9c6232.png
-service-new-market.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261003_101026_e57ad14e-c8c9-4939-b6fa-df2e11f9eeed.png
-service-repositioning.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261003_101001_5de444fe-a7c9-449f-84ae-37dbcc5dd646.png
-service-narrative.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261003_101000_a21e86d1-dd9d-40a5-b639-e7a606df282d.png
