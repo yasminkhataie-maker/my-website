@@ -19,6 +19,7 @@ published article, "Insights" also appears in the site's navigation and footer.
 | --- | --- | --- |
 | `title` | yes | The H1, usually phrased as a question. |
 | `slug` | no | URL part; defaults to the file name. Lowercase words joined by hyphens. |
+| `seo_title` | no | Title tag for search results, if it should differ from the H1. Defaults to "<title> \| Veloxitas". |
 | `description` | yes | Meta description and summary line on the Insights page (about 150 characters). |
 | `short_answer` | yes | 40–60 word direct answer, shown in the "Short answer" box. |
 | `date` | yes | Publish date, `YYYY-MM-DD`. Articles are listed newest first. |
