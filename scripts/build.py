@@ -42,6 +42,8 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 CONTENT_DIR = ROOT / "content" / "insights"
 SERVICES_FILE = ROOT / "content" / "services.yml"
+STRATEGIST_FILE = ROOT / "content" / "marketing-strategist-dubai.yml"
+STRATEGIST_URL = "/marketing-strategist-dubai"
 SITE_URL = "https://veloxitas.com"
 CALENDLY_URL = "https://calendly.com/yasmin-veloxitas"
 LINKEDIN_URL = "https://www.linkedin.com/in/yasmin-khataie/"
@@ -157,6 +159,13 @@ def image_size(path):
                 return int.from_bytes(data[i + 7:i + 9], "big"), int.from_bytes(data[i + 5:i + 7], "big")
             i += 2 + length
     sys.exit(f"{path}: could not read image size")
+
+
+def author_bio_html(bio):
+    """Escaped bio, with "marketing strategist based in Dubai" linked to that page."""
+    text = esc(typo(bio))
+    phrase = "marketing strategist based in Dubai"
+    return text.replace(phrase, f'<a href="{STRATEGIST_URL}">{phrase}</a>', 1)
 
 
 def size_body_images(body_html, source):
@@ -336,6 +345,7 @@ def footer(services, has_posts):
       <nav class="footer-links" aria-label="Footer">
         <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a>
         <a href="{CALENDLY_URL}" target="_blank" rel="noopener">Book a clarity conversation</a>{insights}
+        <a href="{STRATEGIST_URL}">Marketing Strategist in Dubai</a>
       </nav>
       <p class="footer-copy">&copy; 2026 Veloxitas</p>
     </div>
@@ -425,7 +435,10 @@ def social_head(title, description, url, image, og_type):
 <meta property="og:url" content="{esc(abs_url(url))}">
 <meta property="og:type" content="{og_type}">
 <meta property="og:image" content="{esc(abs_url(image))}">
-<meta name="twitter:card" content="summary_large_image">"""
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{esc(title)}">
+<meta name="twitter:description" content="{esc(description)}">
+<meta name="twitter:image" content="{esc(abs_url(image))}">"""
 
 
 def render_index(posts, services):
@@ -569,7 +582,7 @@ def render_post(post, posts, services):
         <img src="/assets/about-me-new.webp" alt="Portrait of Yasmin Khataie" width="900" height="879" loading="lazy" decoding="async">
         <div>
           <p class="author-name">Yasmin Khataie</p>
-          <p>{esc(typo(post['author_bio']))}</p>
+          <p>{author_bio_html(post['author_bio'])}</p>
           <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">Yasmin on LinkedIn</a>
         </div>
       </aside>
@@ -712,6 +725,174 @@ def render_service(s, posts, services):
     return page(head, body, services, bool(posts))
 
 
+def render_strategist(services, has_posts):
+    c = yaml.safe_load(STRATEGIST_FILE.read_text(encoding="utf-8"))
+    url = STRATEGIST_URL
+    t = lambda x: esc(typo(x))
+    photo_path = ROOT / c["photo"].lstrip("/")
+    pw, ph = image_size(photo_path)
+
+    head = social_head(c["title"], c["description"], url, "/assets/about-me-new.jpg", "profile")
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": SITE_URL + "/#yasmin",
+                "name": "Yasmin Khataie",
+                "jobTitle": "Marketing Strategist",
+                "worksFor": {"@id": SITE_URL + "/#org"},
+                "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
+                "email": c["email"],
+                "image": SITE_URL + "/assets/about-me-new.jpg",
+                "url": abs_url(url),
+                "sameAs": [LINKEDIN_URL],
+            },
+            {
+                "@type": "ProfessionalService",
+                "@id": SITE_URL + "/#org",
+                "name": "Veloxitas",
+                "url": SITE_URL,
+                "logo": SITE_URL + "/assets/logo-veloxitas.png",
+                "image": SITE_URL + "/assets/hero-iceberg.jpg",
+                "email": c["email"],
+                "telephone": "+" + WHATSAPP_NUMBER,
+                "address": {"@type": "PostalAddress", "addressLocality": "Dubai", "addressCountry": "AE"},
+                "founder": {"@id": SITE_URL + "/#yasmin"},
+                "areaServed": [{"@type": "City", "name": "Dubai"}] + [
+                    {"@type": "Country", "name": n} for n in
+                    ["United Arab Emirates", "Saudi Arabia", "Kuwait", "Bahrain", "Qatar", "Oman", "Australia"]],
+                "serviceType": ["Marketing strategy", "Market entry strategy", "Brand positioning"],
+            },
+        ],
+    })
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [{
+            "@type": "Question",
+            "name": typo(i["q"]),
+            "acceptedAnswer": {"@type": "Answer", "text": typo(i["a"])},
+        } for i in c["faq"]],
+    })
+    head += "\n" + json_ld({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE_URL + "/"},
+            {"@type": "ListItem", "position": 2, "name": c["h1"], "item": abs_url(url)},
+        ],
+    })
+
+    button = f'<a href="{CALENDLY_URL}" target="_blank" rel="noopener" class="btn btn-red">{t(c["button"])}</a>'
+    who = "\n".join(f"          <li>{t(i)}</li>" for i in c["who"]["items"])
+    cards = "\n".join(f"""          <article class="ms-card">
+            <h3>{t(i['title'])}</h3>
+            <p>{t(i['text'])}</p>
+          </article>""" for i in c["help"]["cards"])
+
+    def step(i, n):
+        title = t(i["title"])
+        if i.get("link"):
+            title = f'<a href="{esc(i["link"])}">{title}</a>'
+        return f"""          <li class="ms-step">
+            <span class="ms-step-number" aria-hidden="true">{n}</span>
+            <p><strong>{title}</strong> {t(i['text'])}</p>
+          </li>"""
+    steps = "\n".join(step(i, n) for n, i in enumerate(c["how"]["steps"], 1))
+    work = "\n".join(f"          <li><strong>{t(i['label'])}</strong> {t(i['text'])}</li>" for i in c["work"]["items"])
+    why = "\n".join(f"""          <li class="ms-why-item"><strong>{t(i['label'])}</strong> {t(i['text'])}</li>""" for i in c["why"]["items"])
+    faq = "\n".join(f"""        <details class="faq-accordion">
+          <summary><h3>{t(i['q'])}</h3></summary>
+          <p>{t(i['a'])}</p>
+        </details>""" for i in c["faq"])
+
+    body = f"""
+  <section class="ms-hero">
+    <div class="container ms-hero-grid">
+      <div class="ms-hero-copy">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">{t(c['h1'])}</li>
+          </ol>
+        </nav>
+        <h1>{t(c['h1'])}</h1>
+        <p class="ms-subhead">{t(c['subhead'])}</p>
+        <p class="ms-intro">{t(c['intro'])}</p>
+        {button}
+      </div>
+      <div class="ms-hero-photo">
+        <img src="{esc(c['photo'])}" alt="{t(c['photo_alt'])}" width="{pw}" height="{ph}" loading="eager" fetchpriority="high" decoding="async">
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" aria-labelledby="ms-who">
+    <div class="container ms-narrow">
+      <h2 id="ms-who">{t(c['who']['heading'])}</h2>
+      <p>{t(c['who']['intro'])}</p>
+      <ul class="service-list">
+{who}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ms-section ms-cream" aria-labelledby="ms-help">
+    <div class="container">
+      <h2 id="ms-help">{t(c['help']['heading'])}</h2>
+      <div class="ms-cards">
+{cards}
+      </div>
+    </div>
+  </section>
+
+  <section class="ms-section" aria-labelledby="ms-how">
+    <div class="container">
+      <h2 id="ms-how">{t(c['how']['heading'])}</h2>
+      <ol class="ms-steps">
+{steps}
+      </ol>
+    </div>
+  </section>
+
+  <section class="ms-section ms-cream" aria-labelledby="ms-work">
+    <div class="container ms-narrow">
+      <h2 id="ms-work">{t(c['work']['heading'])}</h2>
+      <ul class="service-list ms-work-list">
+{work}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ms-section" aria-labelledby="ms-why">
+    <div class="container ms-narrow">
+      <h2 id="ms-why">{t(c['why']['heading'])}</h2>
+      <ul class="ms-why">
+{why}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ms-section ms-faq" aria-labelledby="ms-faq">
+    <div class="container ms-narrow">
+      <h2 id="ms-faq">{t(c['faq_heading'])}</h2>
+{faq}
+    </div>
+  </section>
+
+  <section class="closing-cta ms-cta" aria-labelledby="ms-cta">
+    <div class="container">
+      <h2 id="ms-cta">{t(c['cta']['heading'])}</h2>
+      <p>{t(c['cta']['text'])}</p>
+      {button}
+      <p class="ms-contact"><a href="mailto:{esc(c['email'])}">{esc(c['email'])}</a> · <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">LinkedIn</a></p>
+    </div>
+  </section>
+"""
+    return page(head, body, services, has_posts)
+
+
 def render_feed(posts):
     def rfc822(d):
         return format_datetime(dt.datetime(d.year, d.month, d.day, 9, 0, tzinfo=dt.timezone.utc))
@@ -739,9 +920,9 @@ def render_feed(posts):
 """
 
 
-def render_sitemap(posts, services, home_lastmod, services_lastmod):
+def render_sitemap(posts, services, home_lastmod, services_lastmod, strategist_lastmod):
     insights_lastmod = max([home_lastmod] + [p["updated"] for p in posts]) if posts else home_lastmod
-    urls = [(SITE_URL + "/", home_lastmod)]
+    urls = [(SITE_URL + "/", home_lastmod), (SITE_URL + STRATEGIST_URL, strategist_lastmod)]
     urls += [(abs_url(s["url"]), services_lastmod) for s in services]
     urls += [(SITE_URL + "/insights/", insights_lastmod)]
     urls += [(abs_url(p["url"]), p["updated"]) for p in posts]
@@ -802,7 +983,9 @@ def build(out_dir, include_drafts):
     files["insights/feed.xml"] = render_feed(posts)
     for p in posts:
         files[f"insights/{p['slug']}/index.html"] = render_post(p, posts, services)
-    files["sitemap.xml"] = render_sitemap(posts, services, git_date(index_path), git_date(SERVICES_FILE))
+    files["marketing-strategist-dubai.html"] = render_strategist(services, has_posts)
+    files["sitemap.xml"] = render_sitemap(posts, services, git_date(index_path), git_date(SERVICES_FILE),
+                                          git_date(STRATEGIST_FILE))
 
     # page folders generated earlier whose source is gone (or became a draft)
     stale = []
