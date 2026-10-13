@@ -11,6 +11,9 @@ tags:
   - marketing-strategy
   - gcc
 service: strategy
+hero_image: /assets/insights/strategist-hero.webp
+hero_alt: "View from a ship's bridge at dawn: a brass compass and nautical chart in front, a Gulf city skyline across the water"
+image: /assets/insights/strategist-hero.jpg
 faq:
   - q: "Do I need a marketing strategist if I already have an agency?"
     a: "Often, yes. An agency is paid to execute, and it will execute whatever brief it is given. A strategist makes sure that brief is right. The two work best together."
@@ -60,6 +63,8 @@ You need one when the business is changing faster than its marketing. The most c
 ## What does this look like in real projects?
 
 Three examples from my own work, anonymised. Each one shows a different side of the job: market entry, positioning and marketing strategy.
+
+![A red-hulled ship sailing toward a desert coastline where the dunes meet the sea](/assets/insights/strategist-market-entry.webp)
 
 ### Market entry strategy: is translating your content enough to enter Saudi Arabia?
 
