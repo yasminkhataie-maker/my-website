@@ -6,6 +6,7 @@ description: "What a marketing strategist does, how it differs from an agency, a
 short_answer: "A marketing strategist decides what your marketing should achieve, who it should reach and what it should say, before money goes into channels. You need one when your business has changed, such as a new market, a new offer or bigger clients, or when marketing is busy but not producing the right conversations."
 date: 2026-10-13
 updated: 2026-10-13
+author_bio: "Yasmin Khataie is a marketing strategist based in Dubai and the founder of Veloxitas. She helps companies enter the UAE, Saudi Arabia and the wider GCC, reposition their brands for the region, and fix marketing that has stopped working. She has 7+ years of experience across marketing and operations in the UAE, the GCC and Australia."
 tags:
   - marketing-strategy
   - gcc
@@ -99,7 +100,7 @@ The way I work:
 
 You should leave each session with a decision you can act on, not just a list of ideas.
 
-## How do you choose a marketing strategist in Dubai or the GCC?
+## How do you find the best marketing strategist in Dubai?
 
 Look for someone who asks more than they tell in the first conversation. Then check these:
 
@@ -108,6 +109,8 @@ Look for someone who asks more than they tell in the first conversation. Then ch
 - **Both strategy and operations.** A plan your team cannot run is only a document.
 - **A clear process and pricing.** You should know what you get from the first session.
 - **Honesty about fit.** A good strategist will tell you when you need an agency, not them.
+
+The best marketing strategist in Dubai is not the same for every company. Match the strategist to the problem. If you are entering Saudi Arabia or the wider GCC, repositioning a brand for the region, or fixing marketing that has stopped working, look for someone who has done exactly that here. That is the work I focus on at Veloxitas.
 
 ## Ready to talk it through?
 
