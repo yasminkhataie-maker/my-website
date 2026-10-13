@@ -1,0 +1,75 @@
+# Copy for /marketing-strategist-dubai, rendered by scripts/build.py.
+# Straight apostrophes are fine; the build shows them as typographic ones.
+
+path: marketing-strategist-dubai
+title: Marketing Strategist in Dubai | Yasmin Khataie, Veloxitas
+description: Yasmin Khataie is a Dubai-based marketing strategist helping companies enter the UAE, Saudi Arabia and the GCC, reposition their brands and fix marketing that has stopped working.
+h1: Marketing Strategist in Dubai
+subhead: Market entry, positioning and marketing strategy for companies in the UAE, Saudi Arabia and the GCC.
+intro: I'm Yasmin Khataie, a marketing strategist based in Dubai and the founder of Veloxitas. I help companies enter the UAE, Saudi Arabia and the wider GCC, reposition their brands for the region, and fix marketing that has stopped working. I work across the GCC and Australia.
+button: Book a 20-minute clarity conversation
+photo: /assets/about-me-new.webp
+photo_alt: Yasmin Khataie, marketing strategist in Dubai
+who:
+  heading: Who I work with
+  intro: 'Established companies at a moment of change:'
+  items:
+  - International companies, especially from Australia and Europe, entering Saudi Arabia, the UAE or the wider GCC
+  - Brands whose image works at home but does not land in the region
+  - B2B companies whose marketing is busy but no longer bringing the right conversations
+  - Business councils and organisations that need a clear story for investors and partners
+help:
+  heading: What I help with
+  cards:
+  - title: Market entry strategy for Saudi Arabia and the GCC
+    text: Before you launch, I research how your audience actually behaves, buys and learns in the market, then shape your entry around it. Localisation is more than language.
+  - title: Brand positioning for the region
+    text: I reposition brands so they show up in a way the GCC audience recognises, without losing who they are.
+  - title: Marketing strategy and diagnosis
+    text: 'When marketing stops working, I find where the story breaks and set clear priorities: what to say, to whom, and what to fix first.'
+how:
+  heading: How it works
+  steps:
+  - title: Clarity conversation (20 minutes).
+    text: We talk through your situation and see if there is a fit.
+  - title: Narrative Clarity Diagnostic.
+    text: Focused sessions on how your company is understood today and where the story breaks.
+    link: /narrative-clarity-diagnostic/
+  - title: Priorities and plan.
+    text: A clear narrative, what to fix first and how to measure it.
+  - title: Execution support, if you need it.
+    text: Through your team or a team I manage.
+work:
+  heading: Selected work
+  items:
+  - label: 'Market entry:'
+    text: redesigned a training programme for an Australian company entering Saudi Arabia, after research showed the audience needed a different learning format, not just translation.
+  - label: 'Positioning:'
+    text: repositioned an Italian super-luxury brand for a high-end GCC audience across the UAE, Saudi Arabia, Kuwait, Bahrain and Qatar, keeping its DNA intact.
+  - label: 'Marketing strategy:'
+    text: built a content strategy for a bilateral business council to position Saudi Arabia as a destination for business and investment.
+why:
+  heading: Why work with me
+  items:
+  - label: Regional experience.
+    text: 7+ years across marketing and operations in the UAE, the GCC and Australia.
+  - label: Strategy and operations together.
+    text: Plans your team can actually run.
+  - label: Outside view.
+    text: I ask the questions your team is too close to ask.
+faq_heading: Frequently asked questions
+faq:
+- q: Where are you based?
+  a: In Dubai, UAE. I work with clients across the UAE, Saudi Arabia, the wider GCC and Australia, in person and online.
+- q: Do you only work with companies in Dubai?
+  a: No. Many clients are companies outside the region planning to enter it, or regional companies expanding into Saudi Arabia.
+- q: How do engagements work?
+  a: They are session-based. Most start with a 20-minute clarity conversation, followed by the Narrative Clarity Diagnostic.
+- q: Do you also run the marketing?
+  a: My focus is strategy, narrative and system design. If you need execution, I can brief your team or manage a team for you.
+- q: How do I get started?
+  a: Book a 20-minute clarity conversation. There is no obligation.
+cta:
+  heading: Ready to talk?
+  text: If you are entering a new market, repositioning your brand or your marketing needs a fix, let's start with a conversation.
+email: yasmin@veloxitas.com
