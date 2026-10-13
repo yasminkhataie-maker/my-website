@@ -215,12 +215,15 @@ def load_posts(include_drafts, services):
         service = str(meta.get("service") or "").strip()
         if service and service not in service_tags:
             sys.exit(f"{path}: service must be one of {', '.join(sorted(service_tags))}, got {service!r}")
-        body_html = markdown.markdown(m.group(2), extensions=["extra", "sane_lists"])
+        body_html = markdown.markdown(m.group(2), extensions=["extra", "sane_lists", "smarty"])
+        # wide tables scroll sideways on phones instead of breaking the layout
+        body_html = body_html.replace("<table>", '<div class="table-scroll"><table>').replace("</table>", "</table></div>")
         if re.search(r"<h1[\s>]", body_html):
             sys.exit(f"{path}: the article body must not contain a level-1 heading (#); "
                      "the title is the H1. Use ## and ### in the body.")
         posts.append({
             "title": str(meta["title"]).strip(),
+            "seo_title": str(meta.get("seo_title") or "").strip(),
             "slug": slug,
             "description": str(meta["description"]).strip(),
             "short_answer": str(meta["short_answer"]).strip(),
@@ -429,7 +432,7 @@ def render_index(posts, services):
 
 def render_post(post, posts, services):
     url = post["url"]
-    title_tag = f"{post['title']} | Veloxitas"
+    title_tag = post["seo_title"] or f"{post['title']} | Veloxitas"
     head = social_head(title_tag, post["description"], url, post["image"], "article")
     head += f'\n<meta property="article:published_time" content="{post["date"].isoformat()}">'
     head += f'\n<meta property="article:modified_time" content="{post["updated"].isoformat()}">'
