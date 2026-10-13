@@ -513,6 +513,13 @@ p { margin: 0 0 16px; color: var(--text-muted); }
 .article-body ul, .article-body ol { padding-left: 22px; margin: 0 0 16px; }
 .article-body a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
 .article-body .table-scroll { overflow-x: auto; margin: 8px 0 24px; }
+.article-hero-image { margin: 40px 0 8px; }
+.article-page .short-answer { margin-bottom: 40px; }
+.article-hero-image + .container .article-body { margin-top: 40px; }
+.article-body p > img:only-child { width: 100%; border-radius: 12px; margin: 12px 0 4px; }
+.article-body figure { margin: 28px 0; }
+.article-body figure img { width: 100%; border-radius: 12px; }
+.article-body figcaption { font-size: 0.88rem; color: var(--text-muted); margin-top: 8px; }
 .article-body table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.97rem; }
 .article-body th, .article-body td { padding: 12px 14px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; color: var(--text); }
 .article-body thead th { background: var(--gray-bg); font-weight: 700; }

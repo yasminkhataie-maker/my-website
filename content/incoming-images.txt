@@ -1,0 +1,3 @@
+# Generated images for the first Insights article, fetched by .github/workflows/fetch-images.yml
+strategist-hero.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261013_153040_949f85fa-996d-42ea-8554-60dc116e921d.png
+strategist-market-entry.png https://d8j0ntlcm91z4.cloudfront.net/user_3G7Z7aXMkHO8S16FxBDLnePLxaE/hf_20261013_153043_c1953d38-c9d3-4d8f-ae75-cb18dc3c747e.png

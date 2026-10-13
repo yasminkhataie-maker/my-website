@@ -27,9 +27,21 @@ published article, "Insights" also appears in the site's navigation and footer.
 | `tags` | no | List of tags. Related articles are the ones sharing a tag. |
 | `service` | no | Links the article to a service page: `diagnostic`, `strategy`, `new-market`, `repositioning` or `narrative`. The article shows "Related: <service>" and the service page lists it under "Related insights". |
 | `author_bio` | no | Bio for the author box on this article. Defaults to the standard Veloxitas bio. |
+| `hero_image` | no | Wide banner shown under the Short answer, e.g. `/assets/insights/my-article-hero.webp` (1920px wide). Needs `hero_alt`. |
+| `hero_alt` | with `hero_image` | One-sentence description of the hero image, for screen readers and search. |
 | `image` | no | Social preview image path, e.g. `/assets/insights/my-image.jpg`. Defaults to the hero image. |
 | `faq` | no | List of `q` / `a` pairs, shown after the body and output as FAQPage JSON-LD. |
 | `draft` | no | `true` keeps the article unpublished. |
+
+## Images inside an article
+
+Put the file in `assets/insights/` and add it on its own line in the body:
+
+```markdown
+![Short description of the photo](/assets/insights/my-photo.webp)
+```
+
+The build adds its width, height and lazy loading automatically.
 
 ## Preview locally
 

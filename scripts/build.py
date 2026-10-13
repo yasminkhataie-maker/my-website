@@ -159,6 +159,21 @@ def image_size(path):
     sys.exit(f"{path}: could not read image size")
 
 
+def size_body_images(body_html, source):
+    """Give images in an article body their width/height and lazy loading."""
+    def fix(m):
+        tag = m.group(0)
+        src = re.search(r'src="([^"]+)"', tag).group(1)
+        if src.startswith("/") and "width=" not in tag:
+            img = ROOT / src.lstrip("/")
+            if not img.is_file():
+                sys.exit(f"{source}: image not found: {src}")
+            w, h = image_size(img)
+            tag = tag[:-1].rstrip(" /") + f' width="{w}" height="{h}" loading="lazy" decoding="async">'
+        return tag
+    return re.sub(r"<img [^>]*>", fix, body_html)
+
+
 def load_services():
     data = yaml.safe_load(SERVICES_FILE.read_text(encoding="utf-8")) or {}
     services = data.get("services") or []
@@ -218,6 +233,16 @@ def load_posts(include_drafts, services):
         body_html = markdown.markdown(m.group(2), extensions=["extra", "sane_lists", "smarty"])
         # wide tables scroll sideways on phones instead of breaking the layout
         body_html = body_html.replace("<table>", '<div class="table-scroll"><table>').replace("</table>", "</table></div>")
+        body_html = size_body_images(body_html, path)
+        hero = str(meta.get("hero_image") or "").strip()
+        hero_size = None
+        if hero:
+            hero_path = ROOT / hero.lstrip("/")
+            if not hero_path.is_file():
+                sys.exit(f"{path}: hero_image not found: {hero}")
+            if not meta.get("hero_alt"):
+                sys.exit(f"{path}: hero_image needs a hero_alt description")
+            hero_size = image_size(hero_path)
         if re.search(r"<h1[\s>]", body_html):
             sys.exit(f"{path}: the article body must not contain a level-1 heading (#); "
                      "the title is the H1. Use ## and ### in the body.")
@@ -225,6 +250,9 @@ def load_posts(include_drafts, services):
             "title": str(meta["title"]).strip(),
             "seo_title": str(meta.get("seo_title") or "").strip(),
             "author_bio": str(meta.get("author_bio") or AUTHOR_BIO).strip(),
+            "hero_image": hero,
+            "hero_alt": str(meta.get("hero_alt") or "").strip(),
+            "hero_size": hero_size,
             "slug": slug,
             "description": str(meta["description"]).strip(),
             "short_answer": str(meta["short_answer"]).strip(),
@@ -481,6 +509,18 @@ def render_post(post, posts, services):
       </section>
 """
 
+    hero_html = ""
+    if post["hero_image"]:
+        w, h = post["hero_size"]
+        hero_html = f"""    </div>
+
+    <div class="hero-image article-hero-image">
+      <img src="{esc(post['hero_image'])}" alt="{esc(post['hero_alt'])}" width="{w}" height="{h}" loading="eager" decoding="async">
+    </div>
+
+    <div class="container article-container">
+"""
+
     service_html = ""
     service = next((s for s in services if s["tag"] == post["service"]), None)
     if service:
@@ -520,7 +560,7 @@ def render_post(post, posts, services):
         <p class="short-answer-label">Short answer</p>
         <p>{esc(post['short_answer'])}</p>
       </div>
-
+{hero_html}
       <div class="article-body">
 {post['body']}
       </div>
