@@ -224,6 +224,7 @@ def load_posts(include_drafts, services):
         posts.append({
             "title": str(meta["title"]).strip(),
             "seo_title": str(meta.get("seo_title") or "").strip(),
+            "author_bio": str(meta.get("author_bio") or AUTHOR_BIO).strip(),
             "slug": slug,
             "description": str(meta["description"]).strip(),
             "short_answer": str(meta["short_answer"]).strip(),
@@ -528,7 +529,7 @@ def render_post(post, posts, services):
         <img src="/assets/about-me-new.webp" alt="Portrait of Yasmin Khataie" width="900" height="879" loading="lazy" decoding="async">
         <div>
           <p class="author-name">Yasmin Khataie</p>
-          <p>{esc(AUTHOR_BIO)}</p>
+          <p>{esc(typo(post['author_bio']))}</p>
           <a href="{LINKEDIN_URL}" target="_blank" rel="noopener">Yasmin on LinkedIn</a>
         </div>
       </aside>

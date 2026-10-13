@@ -26,6 +26,7 @@ published article, "Insights" also appears in the site's navigation and footer.
 | `updated` | no | Last update, `YYYY-MM-DD`. Defaults to `date`. |
 | `tags` | no | List of tags. Related articles are the ones sharing a tag. |
 | `service` | no | Links the article to a service page: `diagnostic`, `strategy`, `new-market`, `repositioning` or `narrative`. The article shows "Related: <service>" and the service page lists it under "Related insights". |
+| `author_bio` | no | Bio for the author box on this article. Defaults to the standard Veloxitas bio. |
 | `image` | no | Social preview image path, e.g. `/assets/insights/my-image.jpg`. Defaults to the hero image. |
 | `faq` | no | List of `q` / `a` pairs, shown after the body and output as FAQPage JSON-LD. |
 | `draft` | no | `true` keeps the article unpublished. |
