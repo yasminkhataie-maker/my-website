@@ -592,3 +592,33 @@ p { margin: 0 0 16px; color: var(--text-muted); }
 @media (max-width: 600px) {
   .service-grid { grid-template-columns: 1fr; }
 }
+
+/* -------- WhatsApp button (every page) -------- */
+.whatsapp-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 90;
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.22);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.whatsapp-button:hover, .whatsapp-button:focus-visible {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 10px 26px rgba(17, 17, 17, 0.28);
+}
+.whatsapp-button:focus-visible { outline: 3px solid var(--teal); outline-offset: 3px; }
+
+@media (max-width: 720px) {
+  .whatsapp-button { right: 16px; bottom: 16px; width: 52px; height: 52px; }
+  .whatsapp-button svg { width: 27px; height: 27px; }
+}
+
+@media print { .whatsapp-button { display: none; } }
